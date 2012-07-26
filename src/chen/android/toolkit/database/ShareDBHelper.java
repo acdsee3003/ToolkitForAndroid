@@ -30,7 +30,7 @@ import android.content.SharedPreferences.Editor;
  */
 public class ShareDBHelper {
 
-	private SharedPreferences db;
+	private SharedPreferences mShareDB;
 	
 	/**
 	 * </br><b>description : </b>	初始化，建立一个ShareDatabase
@@ -38,7 +38,7 @@ public class ShareDBHelper {
 	 * @param dbName				Database名字
 	 */
 	public ShareDBHelper(Context context, String dbName) {
-		db = context.getSharedPreferences(dbName, 0);
+		mShareDB = context.getSharedPreferences(dbName, Context.MODE_PRIVATE);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class ShareDBHelper {
 	 * @param val				VALUE
 	 */
 	public void put(String key, Object val) {
-		Editor editor = db.edit();
+		Editor editor = mShareDB.edit();
 		if(val instanceof String){
 			editor.putString(key, val.toString());
 		}else if(val instanceof Integer){
@@ -65,42 +65,42 @@ public class ShareDBHelper {
 	}
 	
 	public int getInt(String key){
-		return db.getInt(key, 0); 
+		return mShareDB.getInt(key, 0); 
 	}
 	
 	public int getInt(String key,int deftVal){
-		return db.getInt(key, deftVal);
+		return mShareDB.getInt(key, deftVal);
 	}
 	
 	public boolean getBoolean(String key){
-		return db.getBoolean(key, false);
+		return mShareDB.getBoolean(key, false);
 	}
 
 	public boolean getBoolean(String key,boolean defValue){
-		return db.getBoolean(key, defValue);
+		return mShareDB.getBoolean(key, defValue);
 	}
 	
 	public String getString(String key){
-		return db.getString(key, null);
+		return mShareDB.getString(key, null);
 	}
 	
 	public String getString(String key,String defValue){
-		return db.getString(key, defValue);
+		return mShareDB.getString(key, defValue);
 	}
 	
 	public long getLong(String key){
-		return db.getLong(key, 0L);
+		return mShareDB.getLong(key, 0L);
 	}
 	
 	public long getLong(String key,Long defValue){
-		return db.getLong(key, defValue);
+		return mShareDB.getLong(key, defValue);
 	}
 	
 	public float getFloat(String key){
-		return db.getFloat(key, 0.0f);
+		return mShareDB.getFloat(key, 0.0f);
 	}
 	
 	public float getFloat(String key,Float defValue){
-		return db.getFloat(key, defValue);
+		return mShareDB.getFloat(key, defValue);
 	}
 }
