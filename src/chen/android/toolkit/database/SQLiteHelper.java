@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -40,6 +41,8 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * SQLite数据库对象
 	 */
 	private SQLiteDatabase mDatabase;
+	
+	private boolean mPrintSQL = false;
 	
 	/**
 	 * </br><b>description : </b>	数据库在没有调用getWritableDatabase() 或者 getReadableDatabase()
@@ -67,6 +70,15 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 */
 	public SQLiteHelper(Context context, String dbName,int version) {
 		this(context, dbName, null, version);
+	}
+	
+	/**
+	 * </br><b>title : </b>		打印SQL语句
+	 * </br><b>description :</b>打印SQL语句
+	 * </br><b>time :</b>		2012-7-28 下午11:18:14
+	 */
+	public void enablePrintSQL(){
+		mPrintSQL = true;
 	}
 	
 	/**
@@ -160,6 +172,7 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 */
 	public void executeSQL(String sql){
 		mDatabase = this.getWritableDatabase();
+		if(mPrintSQL) Log.i(TAG,String.format("[Executing SQL] : %s", sql));
 		mDatabase.execSQL(sql);
 	}
 	
@@ -172,6 +185,7 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 */
 	public void executeSQL(String sql,Object[] bindArgs){
 		mDatabase = this.getWritableDatabase();
+		if(mPrintSQL) Log.i(TAG,String.format("[Executing SQL] : %s", sql));
 		mDatabase.execSQL(sql, bindArgs);
 	}
 	
@@ -180,20 +194,20 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * 在使用完数据库后，必须手动关闭。
 	 */
 	final public void close(){
-		if(mDatabase != null) mDatabase.close();
+		if( null != mDatabase ) mDatabase.close();
 	}
 
 	/**
 	 * SQ语句组
 	 */
-	private String mSQLStatements;
+	private StringBuffer mSQLStatements = new StringBuffer();
 	
 	/**
 	 * SQL注释前缀
 	 */
 	private static final String COMMENT_PREFIX = "--";
 	
-	private static final String EMPTY_SQL_TIP = "Empty SQL statements for database create/upgrade !";
+	private static final String EMPTY_SQL_TIP = "[WARNNING] : Empty SQL statements for database create/upgrade !";
 	
 	/**
 	 * </br><b>title : </b>		设置SQL语句组
@@ -201,8 +215,8 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * </br><b>time :</b>		2012-7-8 下午2:25:30
 	 * @param sqlStatements 	SQL语句组
 	 */
-	public void setSQLStatement(String sqlStatements){
-		mSQLStatements = sqlStatements;
+	public void addSQLStatement(String sqlStatements){
+		mSQLStatements.append(sqlStatements);
 	}
 	
 	/**
@@ -214,8 +228,25 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 		if( null == mSQLStatements){
 			Log.w(TAG,EMPTY_SQL_TIP);
 		}else{
-			execSQLStatements(db,mSQLStatements.replace("\r\n", ";").replace("\n", ";").split(";"));
+			execSQLStatements(db,formateToLine(mSQLStatements.toString()));
 		}
+	}
+	
+	/**
+	 * </br><b>title : </b>		将SQL语句格式化成每行一句
+	 * </br><b>description :</b>将SQL语句格式化成每行一句
+	 * </br><b>time :</b>		2012-7-28 下午11:04:56
+	 * @param sqlGroup
+	 * @return
+	 */
+	private String[] formateToLine(String sqlGroup){
+		StringBuffer sqlTemp = new StringBuffer();
+		for(String line : sqlGroup.split("\n")){
+			if( !TextUtils.isEmpty(line) && !line.startsWith(COMMENT_PREFIX) ){
+				sqlTemp.append(line);
+			}
+		}
+		return sqlTemp.toString().split(";");
 	}
 	
 	/**
@@ -235,7 +266,8 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 */
 	public void execSQLStatements(SQLiteDatabase db,String[] sqlStatements){
 		for(String sql : sqlStatements){
-			if(sql.startsWith(COMMENT_PREFIX)) continue;
+			sql = sql.endsWith(";") ? sql : (sql+=";");
+			if(mPrintSQL) Log.i(TAG,String.format("[Executing SQL] : %s", sql));
 			db.execSQL(sql);
 		}
 	}
