@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package chen.android.toolkit.database;
+package com.apkits.android.database;
 
 import android.content.Context;
 import android.content.SharedPreferences;

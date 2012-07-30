@@ -1,9 +1,10 @@
-package chen.android.toolkit.system;
+package com.apkits.android.system;
+
+import com.apkits.android.network.NetworkUtil;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Handler;
-import chen.android.toolkit.network.NetworkUtil;
 
 
 

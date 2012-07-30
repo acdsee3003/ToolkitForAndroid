@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package chen.android.toolkit.network;
+package com.apkits.android.network;
 
 import java.io.IOException;
 import java.io.InputStream;

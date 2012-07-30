@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package chen.android.toolkit.common;
+package com.apkits.android.common;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
