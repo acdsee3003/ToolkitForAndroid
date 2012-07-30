@@ -73,6 +73,16 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	}
 	
 	/**
+	 * <b>title : 	</b>		取得数据库对象
+	 * </br><b>description :</b>取得原始数据库对象
+	 * </br><b>time :</b>		2012-7-30 下午11:38:04
+	 * @return
+	 */
+	public SQLiteDatabase getDatabase(){
+		return mDatabase;
+	}
+	
+	/**
 	 * </br><b>title : </b>		打印SQL语句
 	 * </br><b>description :</b>打印SQL语句
 	 * </br><b>time :</b>		2012-7-28 下午11:18:14
@@ -102,7 +112,9 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * @return 				返回最后插入的行ID。如果发生异常，返回 -1 。
 	 */
 	public long insert(String table, ContentValues values) {
-		mDatabase = this.getWritableDatabase();
+		if(null == mDatabase || mDatabase.isReadOnly()){
+			mDatabase = this.getWritableDatabase();
+		}
 		return mDatabase.insert(table, null, values);
 	}
 	
@@ -116,7 +128,9 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * @return 				影响行数
 	 */
 	public int delete(String table, String whereClause, String[] whereArgs) {
-		mDatabase = this.getWritableDatabase();
+		if(null == mDatabase || mDatabase.isReadOnly()){
+			mDatabase = this.getWritableDatabase();
+		}
 		return mDatabase.delete(table, whereClause, whereArgs);
 	}
 	
@@ -132,7 +146,9 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 */
 	public int update(String table, ContentValues values, String whereClause,
 			String[] whereArgs) {
-		mDatabase = this.getWritableDatabase();
+		if(null == mDatabase || mDatabase.isReadOnly()){
+			mDatabase = this.getWritableDatabase();
+		}
 		return mDatabase.update(table, values, whereClause, whereArgs);
 	}
 	
@@ -171,7 +187,9 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * @param sql 				需要被执行的SQL语句。不支持用分号（;）分隔的多行语句。
 	 */
 	public void executeSQL(String sql){
-		mDatabase = this.getWritableDatabase();
+		if(null == mDatabase || mDatabase.isReadOnly()){
+			mDatabase = this.getWritableDatabase();
+		}
 		if(mPrintSQL) Log.i(TAG,String.format("[Executing SQL] : %s", sql));
 		mDatabase.execSQL(sql);
 	}
@@ -184,9 +202,44 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * @param bindArgs 			只能是byte[], String, Long 和 Double 等类型
 	 */
 	public void executeSQL(String sql,Object[] bindArgs){
-		mDatabase = this.getWritableDatabase();
+		if(null == mDatabase || mDatabase.isReadOnly()){
+			mDatabase = this.getWritableDatabase();
+		}
 		if(mPrintSQL) Log.i(TAG,String.format("[Executing SQL] : %s", sql));
 		mDatabase.execSQL(sql, bindArgs);
+	}
+	
+	/**
+	 * </br><b>title : </b>		 开启事务
+	 * </br><b>description :</b> 开启事务
+	 * </br><b>time :</b>		2012-7-30 下午11:40:39
+	 */
+	public void beginTransaction() {
+		if (null != mDatabase) {
+			mDatabase.beginTransaction();
+		}
+	}
+
+	/**
+	 * </br><b>title : </b>		设置事务标志为成功，当结束事务时就会提交事务
+	 * </br><b>description :</b>设置事务标志为成功，当结束事务时就会提交事务
+	 * </br><b>time :</b>		2012-7-30 下午11:40:54
+	 */
+	public void setTransactionSuccessful() {
+		if (null != mDatabase) {
+			mDatabase.setTransactionSuccessful();
+		}
+	}
+
+	/**
+	 * </br><b>title : </b>		结束事务
+	 * </br><b>description :</b>结束事务
+	 * </br><b>time :</b>		2012-7-30 下午11:41:10
+	 */
+	public void endTransaction() {
+		if (null != mDatabase) {
+			mDatabase.endTransaction();
+		}
 	}
 	
 	/**

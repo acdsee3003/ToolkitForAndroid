@@ -16,8 +16,10 @@
 package chen.android.toolkit.system;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.telephony.TelephonyManager;
 
 /**
  * </br><b>name : </b>		PhoneCall
@@ -55,6 +57,17 @@ public class PhoneUtil {
 		sendIntent.putExtra("address", recver); 
 		sendIntent.putExtra("sms_body", content); 
 		activity.startActivity(sendIntent);
+	}
+	
+	/**
+	 * <b>title : 	</b>		获取手机号码
+	 * </br><b>description :</b>获取手机号码
+	 * </br><b>time :</b>		2012-7-29 下午4:17:29
+	 * @param context
+	 */
+	public static String getPhoneNum(Context context){
+		TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+		return tm.getLine1Number();
 	}
 	
 	public static void sendSms(String addr,String content){
