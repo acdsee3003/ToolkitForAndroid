@@ -205,7 +205,7 @@ public class ActivityUtil {
 	 * @param activity
 	 * @param message
 	 */
-	public static void toastShow(final Activity activity,final String message){
+	public static void toast(final Activity activity,final String message){
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
 				Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
