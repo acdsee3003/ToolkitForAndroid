@@ -17,12 +17,16 @@ package com.apkits.android.network;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.apkits.android.crypt.HashCrypt;
+import com.apkits.android.crypt.HashCrypt.CryptType;
 
 import android.content.Context;
 
@@ -229,28 +233,34 @@ public class HttpDownloader {
 				URL url = new URL(mTask.url);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
-					
 					byte[] buffer = new byte[BLOCK_SIZE];
 					int bufferSize = 0;
 					int resourceSize = conn.getContentLength() - 1;
-					RandomAccessFile accessFile = null;
+					RandomAccessFile saveFile_af = null;
+					FileOutputStream saveFile_os = null;
 					if( null != mTask.savePath ) {
-						accessFile = new RandomAccessFile(mTask.savePath, "rwd");
-						accessFile.setLength(resourceSize);
+						saveFile_af = new RandomAccessFile(mTask.savePath, "rwd");
+						saveFile_af.setLength(resourceSize);
 					}else{
-						mContext.openFileOutput("", Context.MODE_PRIVATE);
+						//以URL的SHA-1为文件名
+						saveFile_os = mContext.openFileOutput(
+								HashCrypt.encode(CryptType.SHA1, mTask.url), Context.MODE_PRIVATE);
 					}
 					long downloadedSize = 0L;
 					BufferedInputStream cache = new BufferedInputStream(conn.getInputStream());
 					while ((bufferSize = cache.read(buffer)) != -1) {
 						if (mIsCancle) break;
-						accessFile.write(buffer, 0, bufferSize);
+						if( null != saveFile_af ){
+							saveFile_af.write(buffer, 0, bufferSize);
+						}else{
+							saveFile_os.write(buffer, 0, bufferSize);
+						}
 						downloadedSize += bufferSize;
 						int progress = Math.round((float) downloadedSize / resourceSize * 100);
 						mListener.onProcess(mTask.id, progress);
 					}
 					cache.close();
-					accessFile.close();
+					saveFile_af.close();
 					if (mIsCancle) {
 						mListener.onCancle(mTask.id);
 						// 如果取消，把下载文件删除
