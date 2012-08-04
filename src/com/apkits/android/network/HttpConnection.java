@@ -117,13 +117,17 @@ public class HttpConnection {
 	 * @throws IOException
 	 */
 	public static InputStream post(String url,Map<String,String> params,byte[] data) throws MalformedURLException, IOException{
-		StringBuffer sb = new StringBuffer();  
-        for(Map.Entry<String,String> entry:params.entrySet()){  
-            sb.append(entry.getKey()).append("=").append(entry.getValue());  
-            sb.append("&");  
-        }  
-        String param = sb.deleteCharAt(sb.length()-1).toString();  
-        return connect("POST",new URL(url),param.getBytes(),data);
+		if( null != params ){
+			StringBuffer sb = new StringBuffer();  
+			for(Map.Entry<String,String> entry:params.entrySet()){  
+	            sb.append(entry.getKey()).append("=").append(entry.getValue());  
+	            sb.append("&");  
+	        }
+			String param = sb.deleteCharAt(sb.length()-1).toString(); 
+			 return connect("POST",new URL(url),param.getBytes(),data);
+		}else{
+			 return connect("POST",new URL(url),null,data);
+		}
 	}
 
 	/**
@@ -166,13 +170,16 @@ public class HttpConnection {
 	 * @throws IOException
 	 */
 	public static InputStream get(String url,Map<String,String> params) throws MalformedURLException, IOException{
-		StringBuffer sb = new StringBuffer();  
-        for(Map.Entry<String,String> entry:params.entrySet()){  
-            sb.append(entry.getKey()).append("=").append(entry.getValue());  
-            sb.append("&");  
-        }  
-        String param = sb.deleteCharAt(sb.length()-1).toString();  
-        return connect("GET",new URL(url),param.getBytes());
+		if( null != params ){
+			StringBuffer sb = new StringBuffer();  
+			for(Map.Entry<String,String> entry:params.entrySet()){  
+	            sb.append(entry.getKey()).append("=").append(entry.getValue());  
+	            sb.append("&");  
+	        }
+			String param = sb.deleteCharAt(sb.length()-1).toString();  
+	        return connect("GET",new URL(url),param.getBytes());
+		}
+		return connect("GET",new URL(url),new byte[]{});
 	}
 	
 	/**
