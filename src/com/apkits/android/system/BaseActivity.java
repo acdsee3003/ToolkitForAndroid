@@ -41,6 +41,9 @@ public class BaseActivity extends Activity {
 	 */
 	protected Context mContext;
 	
+	/**
+	 * 双击退出模块
+	 */
 	protected DoubleClickExit mDClickExit;
 	
 	/* (non-Javadoc)
@@ -74,7 +77,5 @@ public class BaseActivity extends Activity {
 		}
 		
 	}
-	
-	
 	
 }

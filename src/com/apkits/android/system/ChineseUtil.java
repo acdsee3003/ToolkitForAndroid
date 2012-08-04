@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * </br><b>name : </b>	ChineseUtil </br>
- * <b>description :</b>	TODO </br>
+ * <b>description :</b>	中文处理工具 </br>
  * @author : 			桥下一粒砂 </br>
  * <b>e-mail : </b> 	chenyoca@gmail.com </br>
  * <b>weibo : </b> 		@桥下一粒砂

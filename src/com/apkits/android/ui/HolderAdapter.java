@@ -62,6 +62,11 @@ public class HolderAdapter<E> extends BaseAdapter {
 	 */
 	private ViewCreator<E> mCreator;
 	
+	/**
+	 * </br><b>description : </b>	创建HolderAdapter，需要给定View创建接口。
+	 * @param inflater
+	 * @param creator
+	 */
 	public HolderAdapter(LayoutInflater inflater,ViewCreator<E> creator){
 		mInflater = inflater;
 		mCreator = creator;
@@ -80,7 +85,7 @@ public class HolderAdapter<E> extends BaseAdapter {
 	
 	/**
 	 * </br><b>title : </b>		添加数据集
-	 * </br><b>description :</b>添加数据集
+	 * </br><b>description :</b>添加数据集，向数据缓存中添加多个元素。
 	 * </br><b>time :</b>		2012-7-17 下午10:19:45
 	 * @param set
 	 */
@@ -92,7 +97,7 @@ public class HolderAdapter<E> extends BaseAdapter {
 
 	/**
 	 * </br><b>title : </b>		添加数据元素
-	 * </br><b>description :</b>添加数据元素
+	 * </br><b>description :</b>添加数据元素，向数据缓存中添加单个元素。
 	 * </br><b>time :</b>		2012-7-17 下午10:19:51
 	 * @param item
 	 */
@@ -127,6 +132,7 @@ public class HolderAdapter<E> extends BaseAdapter {
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
+		//Holder View模式实现
 		ViewHolder holder = null;
 		if (convertView == null) {
 		    holder = new ViewHolder();
