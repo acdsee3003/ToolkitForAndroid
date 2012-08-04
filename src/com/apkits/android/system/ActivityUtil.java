@@ -142,6 +142,7 @@ public class ActivityUtil {
 	 */
 	public static void switchTo(Activity activity,Intent intent){
 		activity.startActivity(intent);
+		activity.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 	}
 	
 	/**
@@ -193,6 +194,7 @@ public class ActivityUtil {
             setValueToIntent(intent, param.name, param.value);
         }
         activity.startActivityForResult(intent, requestCode);
+        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	}
 	
 	
