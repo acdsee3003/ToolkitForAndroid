@@ -15,6 +15,7 @@
  */
 package com.apkits.android.widget;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -103,13 +104,13 @@ public class WebImageView extends ImageView {
 	}
 	
 	/**
-	 * </br><b>title : </b>		TODO
-	 * </br><b>description :</b>一旦设置，即从网络下载图片。
+	 * </br><b>title : </b>		设置网络图片地址
+	 * </br><b>description :</b>首先从缓存文件夹中读取，再从网络下载。
 	 * </br><b>time :</b>		2012-8-4 下午4:03:19
 	 * @param url
 	 */
 	public void setImageUrl(final String url){
-		String tempFile = HashCrypt.encode(CryptType.SHA1, url);
+		final String tempFile = HashCrypt.encode(CryptType.SHA1, url);
 		if(mContext.getFileStreamPath(tempFile).exists()){
 			try {
 				this.setImageBitmap(StreamConverter.convertBitmap(mContext.openFileInput(tempFile)));
@@ -122,9 +123,17 @@ public class WebImageView extends ImageView {
 				public void run() {
 					try {
 						InputStream is = HttpConnection.get(url);
+						FileOutputStream os = mContext.openFileOutput(tempFile, Context.MODE_PRIVATE);
+						byte[] bytes = new byte[ 1 * 1024 ]; 
+						int bufferSize = 0;
+						while((bufferSize = is.read(bytes)) != -1){
+							os.write(bytes, 0, bufferSize);
+						}
 						Message msg = new Message();
 						msg.obj = StreamConverter.convertBitmap(is);
 						mUpdateCallback.sendMessage(msg);
+						is.close();
+						os.close();
 					} catch (IOException e) {
 						Log.e(TAG,String.format("Cannot fetch image from url (%) !", url));
 					}
