@@ -44,7 +44,7 @@ public class BaseActivity extends Activity {
 	/**
 	 * 双击退出模块
 	 */
-	protected DoubleClickExit mDClickExit;
+	protected DClickExit mDClickExit;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -62,7 +62,7 @@ public class BaseActivity extends Activity {
 	 * </br><b>time :</b>		2012-7-18 下午9:24:41
 	 */
 	protected void enabledDClickExit(){
-		mDClickExit = new DoubleClickExit(mActivity);
+		mDClickExit = new DClickExit(mActivity);
 	}
 
 	/* (non-Javadoc)

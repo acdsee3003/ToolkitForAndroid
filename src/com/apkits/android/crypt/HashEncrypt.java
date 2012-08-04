@@ -28,7 +28,7 @@ import java.security.NoSuchAlgorithmException;
  * </br><b>date : </b>		2012-8-4 下午3:02:16
  *
  */
-public class HashCrypt {
+public class HashEncrypt {
 	
 	/**
 	 * </br><b>name : </b>		CryptTyep

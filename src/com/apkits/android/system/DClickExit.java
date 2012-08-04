@@ -12,7 +12,7 @@ import android.widget.Toast;
  * @author chenyoca [桥下一粒砂] (chenyoca@163.com)
  * @date 2012-1-13
  */
-public class DoubleClickExit {
+public class DClickExit {
 	private static final String DEFAULT_EXIT_TIP = "再按一次返回键退出应用！";
 	private static final int DEFAULT_EXIT_TIME  = 2000;
 	private Activity mContext;
@@ -23,7 +23,7 @@ public class DoubleClickExit {
 	 * 需要执行退出提示的Activity对象引用 
 	 * @param context Activity的对象引用
 	 */
-	public DoubleClickExit(Activity context) {
+	public DClickExit(Activity context) {
 		this.mContext = context;
 	}
 

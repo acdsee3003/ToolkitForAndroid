@@ -28,14 +28,14 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.apkits.android.common.StreamConverter;
-import com.apkits.android.crypt.HashCrypt;
-import com.apkits.android.crypt.HashCrypt.CryptType;
+import com.apkits.android.crypt.HashEncrypt;
+import com.apkits.android.crypt.HashEncrypt.CryptType;
 import com.apkits.android.network.HttpConnection;
 import com.apkits.android.resource.BitmapScaleUitl;
 
 /**
  * </br><b>name : </b>		WebImageView
- * </br><b>description :</b>TODO
+ * </br><b>description :</b>实现了网络图片加载的图片控件。首先从缓存中加载，再从网络加载。
  * </br>@author : 			桥下一粒砂
  * </br><b>e-mail : </b>	chenyoca@gmail.com
  * </br><b>weibo : </b>		@桥下一粒砂
@@ -65,11 +65,15 @@ public class WebImageView extends ImageView {
 	private Handler mUpdateCallback = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
-			Bitmap img = (Bitmap) msg.obj;
-			if( mResize[0] > 10 && mResize[1] > 10){
-				img = BitmapScaleUitl.extractThumbnail(img, mResize[0], mResize[1]);
-			}
-			WebImageView.this.setImageBitmap(img);
+			try {
+				Bitmap img = StreamConverter.convertBitmap(mContext.openFileInput(msg.obj.toString()));
+				if( mResize[0] > 10 && mResize[1] > 10){
+					img = BitmapScaleUitl.extractThumbnail(img, mResize[0], mResize[1]);
+				}
+				WebImageView.this.setImageBitmap(img);
+			} catch (IOException e) {
+				Log.e(TAG,"Cannot convert file to image !");
+			} 
 		}
 	};
 	
@@ -110,33 +114,33 @@ public class WebImageView extends ImageView {
 	 * @param url
 	 */
 	public void setImageUrl(final String url){
-		final String tempFile = HashCrypt.encode(CryptType.SHA1, url);
+		final String tempFile = HashEncrypt.encode(CryptType.SHA1, url);
 		if(mContext.getFileStreamPath(tempFile).exists()){
-			try {
-				this.setImageBitmap(StreamConverter.convertBitmap(mContext.openFileInput(tempFile)));
-			}catch (IOException e) {
-				Log.e(TAG,String.format("Cannot read the temp image (%) !", tempFile));
-			}
+			Message msg = new Message();
+			msg.obj = tempFile;
+			mUpdateCallback.sendMessage(msg);
 		}else{
 			new Thread(new Runnable(){
 				@Override
 				public void run() {
 					try {
 						InputStream is = HttpConnection.get(url);
+						
 						FileOutputStream os = mContext.openFileOutput(tempFile, Context.MODE_PRIVATE);
-						byte[] bytes = new byte[ 1 * 1024 ]; 
+						byte[] bytes = new byte[ 1 * 512 ]; 
 						int bufferSize = 0;
 						while((bufferSize = is.read(bytes)) != -1){
 							os.write(bytes, 0, bufferSize);
 						}
-						Message msg = new Message();
-						msg.obj = StreamConverter.convertBitmap(is);
-						mUpdateCallback.sendMessage(msg);
-						is.close();
 						os.close();
+						is.close();
 					} catch (IOException e) {
 						Log.e(TAG,String.format("Cannot fetch image from url (%) !", url));
 					}
+					
+					Message msg = new Message();
+					msg.obj = tempFile;
+					mUpdateCallback.sendMessage(msg);
 				}
 			}).start();
 		}

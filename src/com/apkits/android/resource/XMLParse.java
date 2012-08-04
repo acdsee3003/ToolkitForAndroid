@@ -37,7 +37,7 @@ import android.util.Xml;
  * </br><b>date : </b>		2012-7-8 下午4:00:35
  *
  */
-public class XMLParseEngine {
+public class XMLParse {
 
 	/**
 	 * </br><b>name : </b>		XMLElementParser
@@ -84,7 +84,7 @@ public class XMLParseEngine {
 	 * </br><b>description : </b>	必须传入一个节点解析接口
 	 * @param elementParser
 	 */
-	public XMLParseEngine(XMLElementParser elementParser){
+	public XMLParse(XMLElementParser elementParser){
 		mElementParser = elementParser;
 	}
 	
