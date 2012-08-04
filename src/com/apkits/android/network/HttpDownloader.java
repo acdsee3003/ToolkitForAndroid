@@ -24,6 +24,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+
 /**
  * </br><b>name : </b>		DownloadTask
  * </br><b>description :</b>下载工具
@@ -115,25 +117,51 @@ public class HttpDownloader {
 	private int mTaskId;
 	
 	/**
+	 * 环境上下文
+	 */
+	private Context mContext;
+	
+	/**
 	 * </br><b>description : </b>	创建下载任务。必须设置一个回调接口。
 	 * @param listener
 	 */
-	public HttpDownloader(DownloadTaskListener listener) {
+	public HttpDownloader(Context context,DownloadTaskListener listener) {
 		if( null == listener ) throw new RuntimeException("Download task callback listener cannot be null !");
 		mListener = listener;
+		mContext = context;
 	}
 
 	/**
-	 * 添加下载任务。
-	 * 执行此方法则创建一个下载线程。
-	 * @param url 下载URL
-	 * @param savePath 保存地址。请保证保存路径正确可读。
+	 * </br><b>title : </b>		添加下载任务
+	 * </br><b>description :</b>执行此方法则创建一个下载线程。
+	 * </br><b>time :</b>		2012-8-4 下午2:27:28
+	 * @param url
+	 * @param savePath
 	 * @return 任务ID
 	 */
 	public int addTask(String url, String savePath) {
 		TaskDescription task = new TaskDescription();
 		task.id = mTaskId;
 		task.savePath = savePath;
+		task.url = url;
+		//创建下载线程
+		DownloadThread thread = new DownloadThread(task);
+		new Thread(thread).start();
+		mThreadPool.add(thread);
+		return mTaskId++;
+	}
+	
+	/**
+	 * </br><b>title : </b>		添加下载任务
+	 * </br><b>description :</b>文件将被保存到应用私有目录
+	 * </br><b>time :</b>		2012-8-4 下午2:27:22
+	 * @param url
+	 * @return
+	 */
+	public int addTask(String url){
+		TaskDescription task = new TaskDescription();
+		task.id = mTaskId;
+		task.savePath = null;
 		task.url = url;
 		//创建下载线程
 		DownloadThread thread = new DownloadThread(task);
@@ -201,15 +229,21 @@ public class HttpDownloader {
 				URL url = new URL(mTask.url);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
-					RandomAccessFile accessFile = new RandomAccessFile(mTask.savePath, "rwd");
+					
 					byte[] buffer = new byte[BLOCK_SIZE];
 					int bufferSize = 0;
 					int resourceSize = conn.getContentLength() - 1;
-					accessFile.setLength(resourceSize);
+					RandomAccessFile accessFile = null;
+					if( null != mTask.savePath ) {
+						accessFile = new RandomAccessFile(mTask.savePath, "rwd");
+						accessFile.setLength(resourceSize);
+					}else{
+						mContext.openFileOutput("", Context.MODE_PRIVATE);
+					}
 					long downloadedSize = 0L;
 					BufferedInputStream cache = new BufferedInputStream(conn.getInputStream());
 					while ((bufferSize = cache.read(buffer)) != -1) {
-						if(mIsCancle) break;
+						if (mIsCancle) break;
 						accessFile.write(buffer, 0, bufferSize);
 						downloadedSize += bufferSize;
 						int progress = Math.round((float) downloadedSize / resourceSize * 100);
@@ -217,17 +251,17 @@ public class HttpDownloader {
 					}
 					cache.close();
 					accessFile.close();
-					if(mIsCancle){
+					if (mIsCancle) {
 						mListener.onCancle(mTask.id);
-						//如果取消，把下载文件删除
+						// 如果取消，把下载文件删除
 						new File(mTask.savePath).delete();
-					}else{
+					} else {
 						mListener.onCompleted(mTask.id);
 					}
 				} else {
 					mListener.onFailed(mTask.id, conn.getResponseMessage());
 				}
-				//断开连接
+				// 断开连接
 				conn.disconnect();
 			} catch (IOException e) {
 				mListener.onFailed(mTask.id, e.getMessage());
