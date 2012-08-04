@@ -17,8 +17,6 @@ package com.apkits.android.ui;
 
 import java.util.List;
 
-import com.apkits.android.ui.HolderAdapter.ViewCreator;
-
 import android.view.LayoutInflater;
 import android.widget.AbsListView;
 import android.widget.ListAdapter;
