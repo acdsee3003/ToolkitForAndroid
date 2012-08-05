@@ -33,7 +33,7 @@ import android.util.Log;
  * </br><b>date : </b>		2012-7-8 下午2:37:33
  *
  */
-public abstract class JSONConvertor<T> {
+public abstract class JSONConverter<T> {
 
 	/**
 	 * Android环境上下文
@@ -46,7 +46,7 @@ public abstract class JSONConvertor<T> {
 	 * </br><b>description : </b>	JSON转换器
 	 * @param context
 	 */
-	public JSONConvertor(Context context){
+	public JSONConverter(Context context){
 		mContext = context;
 	}
 	

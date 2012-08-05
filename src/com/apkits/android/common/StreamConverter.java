@@ -24,7 +24,8 @@ import android.graphics.drawable.BitmapDrawable;
 
 /**
  * </br><b>name : </b>		StreamConverter
- * </br><b>description :</b>流转换器
+ * </br><b>description :</b>对InputStream进行各类型数据的转换。
+ * 					转换类型包括Drawabel,Bitmap,String,byte[]等。
  * </br>@author : 			桥下一粒砂
  * </br><b>e-mail : </b>	chenyoca@gmail.com
  * </br><b>weibo : </b>		@桥下一粒砂

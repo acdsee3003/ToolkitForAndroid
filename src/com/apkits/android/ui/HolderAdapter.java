@@ -25,7 +25,7 @@ import android.widget.BaseAdapter;
 
 /**
  * </br><b>name : </b>		HolderAdapter
- * </br><b>description :</b>TODO
+ * </br><b>description :</b>实现HolderView模式的Adapter。
  * </br>@author : 			桥下一粒砂
  * </br><b>e-mail : </b>	chenyoca@gmail.com
  * </br><b>weibo : </b>		@桥下一粒砂

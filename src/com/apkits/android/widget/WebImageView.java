@@ -31,7 +31,7 @@ import com.apkits.android.common.StreamConverter;
 import com.apkits.android.crypt.HashEncrypt;
 import com.apkits.android.crypt.HashEncrypt.CryptType;
 import com.apkits.android.network.HttpConnection;
-import com.apkits.android.resource.BitmapScaleUitl;
+import com.apkits.android.resource.BitmapScaleUtil;
 
 /**
  * </br><b>name : </b>		WebImageView
@@ -70,7 +70,7 @@ public class WebImageView extends ImageView {
 			try {
 				Bitmap img = StreamConverter.convertBitmap(mContext.openFileInput(msg.obj.toString()));
 				if( mResize[0] > 10 && mResize[1] > 10){
-					img = BitmapScaleUitl.extractThumbnail(img, mResize[0], mResize[1]);
+					img = BitmapScaleUtil.extractThumbnail(img, mResize[0], mResize[1]);
 				}
 				WebImageView.this.setImageBitmap(img);
 			} catch (IOException e) {
