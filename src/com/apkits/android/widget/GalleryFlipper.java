@@ -30,6 +30,17 @@ import android.widget.Adapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+/**
+ * </br><b>name : </b>		GalleryFlipper
+ * </br><b>description :</b>支持通过Adapter设置View数量的Gallery控件。
+ * 						使用HolderAdatper可以自动缓存View的创建，减少View的创建与回收，提升性能。
+ * 						如果需要处理Gallery的触控过程，请设置OnFlipperListener。
+ * </br>@author : 			桥下一粒砂
+ * </br><b>e-mail : </b>	chenyoca@gmail.com
+ * </br><b>weibo : </b>		@桥下一粒砂
+ * </br><b>date : </b>		2012-8-5 下午12:41:27
+ *
+ */
 public class GalleryFlipper extends FrameLayout {
 
 	/**
@@ -42,12 +53,32 @@ public class GalleryFlipper extends FrameLayout {
 	 *
 	 */
 	public interface OnFlipperListener {
+		/**
+		 * </br><b>title : </b>		拉动第一个View
+		 * </br><b>description :</b>从右向左滑动为前进方向。在第一个页面向右拉动。
+		 * </br><b>time :</b>		2012-8-5 下午12:48:29
+		 */
 		void pullingHead();
 
+		/**
+		 * </br><b>title : </b>		拉动最后一个View
+		 * </br><b>description :</b>从右向左滑动为前进方向。在最后一个页面向左拉动。
+		 * </br><b>time :</b>		2012-8-5 下午12:49:22
+		 */
 		void pullingTrail();
 
+		/**
+		 * </br><b>title : </b>		切换到上一个View
+		 * </br><b>description :</b>从右向左滑动为前进方向。切换到上一个View。
+		 * </br><b>time :</b>		2012-8-5 下午12:50:54
+		 */
 		void movePrevious();
 
+		/**
+		 * </br><b>title : </b>		切换到下一个View
+		 * </br><b>description :</b>从右向左滑动为前进方向。切换到下一个View。
+		 * </br><b>time :</b>		2012-8-5 下午12:50:54
+		 */
 		void moveNext();
 	}
 

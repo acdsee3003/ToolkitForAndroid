@@ -35,7 +35,9 @@ import com.apkits.android.resource.BitmapScaleUitl;
 
 /**
  * </br><b>name : </b>		WebImageView
- * </br><b>description :</b>实现了网络图片加载的图片控件。首先从缓存中加载，再从网络加载。
+ * </br><b>description :</b>继承自ImageView，支持自动加载网络图片，并具有缓存图片功能。
+ * 						控件首先检查缓存（应用私有目录）中是否存在URL所指向的图片，如果存在，则直接读取缓存中的图片。
+ * 						如果不存在，则创建一个线程下载网络图片。
  * </br>@author : 			桥下一粒砂
  * </br><b>e-mail : </b>	chenyoca@gmail.com
  * </br><b>weibo : </b>		@桥下一粒砂
