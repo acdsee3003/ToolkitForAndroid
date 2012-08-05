@@ -114,12 +114,15 @@ public class WebImageView extends ImageView {
 	 * @param url
 	 */
 	public void setImageUrl(final String url){
+		//对URL以SHA-1加密并命名
 		final String tempFile = HashEncrypt.encode(CryptType.SHA1, url);
+		//是否在缓存
 		if(mContext.getFileStreamPath(tempFile).exists()){
 			Message msg = new Message();
 			msg.obj = tempFile;
 			mUpdateCallback.sendMessage(msg);
 		}else{
+			//下载
 			new Thread(new Runnable(){
 				@Override
 				public void run() {

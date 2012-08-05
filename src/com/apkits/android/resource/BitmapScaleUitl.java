@@ -32,6 +32,7 @@ import android.graphics.Rect;
 public class BitmapScaleUitl {
 
 	private static final int OPTIONS_NONE = 0x0;
+	
 	private static final int OPTIONS_SCALE_UP = 0x1;
 
 	public static final int OPTIONS_RECYCLE_INPUT = 0x2;
