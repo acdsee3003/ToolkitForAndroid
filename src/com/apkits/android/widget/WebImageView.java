@@ -28,8 +28,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.apkits.android.common.StreamConverter;
-import com.apkits.android.crypt.HashEncrypt;
-import com.apkits.android.crypt.HashEncrypt.CryptType;
+import com.apkits.android.encrypt.HashEncrypt;
+import com.apkits.android.encrypt.HashEncrypt.CryptType;
 import com.apkits.android.network.HttpConnection;
 import com.apkits.android.resource.BitmapScaleUtil;
 

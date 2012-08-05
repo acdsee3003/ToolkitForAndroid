@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.apkits.android.crypt;
+package com.apkits.android.encrypt;
 
 import java.io.UnsupportedEncodingException;
 
