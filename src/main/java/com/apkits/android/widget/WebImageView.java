@@ -46,6 +46,7 @@ import com.apkits.android.resource.BitmapScaleUtil;
  */
 public class WebImageView extends ImageView {
 
+	public static final int MIN_WIDTH_HEIGHT = 10;
 	/**
 	 * 调试信息输出
 	 */
@@ -67,15 +68,19 @@ public class WebImageView extends ImageView {
 	private Handler mUpdateCallback = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
+			Bitmap img = null;
 			try {
-				Bitmap img = StreamConverter.convertBitmap(mContext.openFileInput(msg.obj.toString()));
-				if( mResize[0] > 10 && mResize[1] > 10){
+				img = StreamConverter.convertBitmap(mContext.openFileInput(msg.obj.toString()));
+				if( mResize[0] > MIN_WIDTH_HEIGHT && mResize[1] > MIN_WIDTH_HEIGHT){
 					img = BitmapScaleUtil.extractThumbnail(img, mResize[0], mResize[1]);
 				}
-				WebImageView.this.setImageBitmap(img);
 			} catch (IOException e) {
 				Log.e(TAG,"Cannot convert file to image !");
 			} 
+			if( null != img ){
+				WebImageView.this.setImageBitmap(img);
+			}
+			WebImageView.this.invalidate();
 		}
 	};
 	
@@ -87,7 +92,11 @@ public class WebImageView extends ImageView {
 	 * @param height
 	 */
 	public void setImageSize(int width,int height){
-		mResize = new int[]{width,height};
+		if( width < MIN_WIDTH_HEIGHT || height < MIN_WIDTH_HEIGHT ){
+			throw new IllegalArgumentException(String.format("Image size width or height must greater than %d !",MIN_WIDTH_HEIGHT));
+		}else{
+			mResize = new int[]{width,height};
+		}
 	}
 	
 	/**
