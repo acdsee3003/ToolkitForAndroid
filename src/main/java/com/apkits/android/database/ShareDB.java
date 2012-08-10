@@ -28,7 +28,7 @@ import android.content.SharedPreferences.Editor;
  * </br><b>date : </b>		2012-7-8 下午4:50:50
  *
  */
-public class ShareDBHelper {
+public class ShareDB {
 
 	private SharedPreferences mShareDB;
 	
@@ -37,7 +37,7 @@ public class ShareDBHelper {
 	 * @param context				Android环境上下文
 	 * @param dbName				Database名字
 	 */
-	public ShareDBHelper(Context context, String dbName) {
+	public ShareDB(Context context, String dbName) {
 		mShareDB = context.getSharedPreferences(dbName, Context.MODE_PRIVATE);
 	}
 

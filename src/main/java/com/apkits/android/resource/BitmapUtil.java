@@ -29,7 +29,7 @@ import android.graphics.Rect;
  * </br><b>date : </b>		2012-7-18 下午9:37:23
  *
  */
-public class BitmapScaleUtil {
+public class BitmapUtil {
 
 	private static final int OPTIONS_NONE = 0x0;
 	

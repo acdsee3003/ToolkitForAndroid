@@ -157,7 +157,7 @@ public class ActivityUtil {
 			Intent intent = new Intent(activity,targetActivity);
 			if( null != params ){
 				for(Map.Entry<String, Object> entry : params.entrySet()){
-					setValueToIntent(intent, entry.getKey(), entry.getValue());
+					IntentUtil.setValueToIntent(intent, entry.getKey(), entry.getValue());
 				}
 			}
 			switchTo(activity, intent);
@@ -174,7 +174,7 @@ public class ActivityUtil {
 	public static void switchTo(Activity activity,Class<? extends Activity> target,NameValue...params){
         Intent intent = new Intent(activity,target);
         for(NameValue param : params){
-            setValueToIntent(intent, param.name, param.value);
+        	IntentUtil.setValueToIntent(intent, param.name, param.value);
         }
         switchTo(activity, intent);
 	}
@@ -191,7 +191,7 @@ public class ActivityUtil {
 	public static void switchForResult(Activity activity,Class<? extends Activity> target,int requestCode,NameValue...params){
 		Intent intent = new Intent(activity,target);
         for(NameValue param : params){
-            setValueToIntent(intent, param.name, param.value);
+            IntentUtil.setValueToIntent(intent, param.name, param.value);
         }
         activity.startActivityForResult(intent, requestCode);
         activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -205,7 +205,7 @@ public class ActivityUtil {
 	 * @param activity
 	 * @param message
 	 */
-	public static void toast(final Activity activity,final String message){
+	public static void show(final Activity activity,final String message){
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
 				Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
@@ -213,39 +213,6 @@ public class ActivityUtil {
 		});
 	}
 	
-	/**
-	 * </br><b>title : </b>		将值设置到Intent里
-	 * </br><b>description :</b>将值设置到Intent里
-	 * </br><b>time :</b>		2012-7-8 下午3:31:17
-	 * @param intent			Inent对象
-	 * @param key				Key
-	 * @param val				Value
-	 */
-	public static void setValueToIntent(Intent intent, String key, Object val) {
-		if (val instanceof Boolean)
-			intent.putExtra(key, (Boolean) val);
-		else if (val instanceof Boolean[])
-			intent.putExtra(key, (Boolean[]) val);
-		else if (val instanceof String)
-			intent.putExtra(key, (String) val);
-		else if (val instanceof String[])
-			intent.putExtra(key, (String[]) val);
-		else if (val instanceof Integer)
-			intent.putExtra(key, (Integer) val);
-		else if (val instanceof Integer[])
-			intent.putExtra(key, (Integer[]) val);
-		else if (val instanceof Long)
-			intent.putExtra(key, (Long) val);
-		else if (val instanceof Long[])
-			intent.putExtra(key, (Long[]) val);
-		else if (val instanceof Double)
-			intent.putExtra(key, (Double) val);
-		else if (val instanceof Double[])
-			intent.putExtra(key, (Double[]) val);
-		else if (val instanceof Float)
-			intent.putExtra(key, (Float) val);
-		else if (val instanceof Float[])
-			intent.putExtra(key, (Float[]) val);
-	}
+	
 	
 }

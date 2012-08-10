@@ -32,7 +32,7 @@ import android.graphics.drawable.BitmapDrawable;
  * </br><b>date : </b>		2012-7-8
  *
  */
-public class StreamConverter {
+public class StreamUtil {
 	
 	/**
 	 * </br><b>title : </b>		将InputStream流转换成BitmapDrawable。

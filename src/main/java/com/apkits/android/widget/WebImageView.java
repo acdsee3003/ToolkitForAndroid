@@ -27,11 +27,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.apkits.android.common.StreamConverter;
+import com.apkits.android.common.StreamUtil;
 import com.apkits.android.encrypt.HashEncrypt;
 import com.apkits.android.encrypt.HashEncrypt.CryptType;
 import com.apkits.android.network.HttpConnection;
-import com.apkits.android.resource.BitmapScaleUtil;
+import com.apkits.android.resource.BitmapUtil;
 
 /**
  * </br><b>name : </b>		WebImageView
@@ -70,9 +70,9 @@ public class WebImageView extends ImageView {
 		public void handleMessage(Message msg) {
 			Bitmap img = null;
 			try {
-				img = StreamConverter.convertBitmap(mContext.openFileInput(msg.obj.toString()));
+				img = StreamUtil.convertBitmap(mContext.openFileInput(msg.obj.toString()));
 				if( mResize[0] > MIN_WIDTH_HEIGHT && mResize[1] > MIN_WIDTH_HEIGHT){
-					img = BitmapScaleUtil.extractThumbnail(img, mResize[0], mResize[1]);
+					img = BitmapUtil.extractThumbnail(img, mResize[0], mResize[1]);
 				}
 			} catch (IOException e) {
 				Log.e(TAG,"Cannot convert file to image !");
@@ -139,7 +139,6 @@ public class WebImageView extends ImageView {
 				public void run() {
 					try {
 						InputStream is = HttpConnection.get(url);
-						
 						FileOutputStream os = mContext.openFileOutput(tempFile, Context.MODE_PRIVATE);
 						byte[] bytes = new byte[ 1 * 512 ]; 
 						int bufferSize = 0;

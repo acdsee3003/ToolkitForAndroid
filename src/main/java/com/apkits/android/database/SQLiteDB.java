@@ -33,7 +33,7 @@ import android.util.Log;
  * </br><b>date : </b>		2012-7-8 下午2:33:56
  *
  */
-public class SQLiteHelper extends SQLiteOpenHelper  {
+public class SQLiteDB extends SQLiteOpenHelper  {
 
 	/**
 	 * 调试输出标签
@@ -60,7 +60,7 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * 			  			onUpgrade(SQLiteDatabase, int, int)升级数据库。否则调用 onDowngrade(SQLiteDatabase, int, int)
 	 * 			  			降级数据库。
 	 */
-	public SQLiteHelper(Context context, String dbName, CursorFactory factory,
+	public SQLiteDB(Context context, String dbName, CursorFactory factory,
 			int version) {
 		super(context, dbName, factory, version);
 	}
@@ -74,7 +74,7 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * 			  onUpgrade(SQLiteDatabase, int, int)升级数据库。否则调用 onDowngrade(SQLiteDatabase, int, int)
 	 * 			  降级数据库。
 	 */
-	public SQLiteHelper(Context context, String dbName,int version) {
+	public SQLiteDB(Context context, String dbName,int version) {
 		this(context, dbName, null, version);
 	}
 	
@@ -123,6 +123,45 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 		}
 		return mDatabase.insert(table, null, values);
 	}
+	
+	
+	/**
+	 * <b>description :</b>		根据Key和Value自动判断插入或者更新
+	 * </br><b>time :</b>		2012-8-10 下午9:59:44
+	 * @param table
+	 * @param values
+	 * @param keyName
+	 * @param keyValue
+	 * @return
+	 */
+	public long insertOrUpdate(String table, ContentValues values,
+			String keyName, Object keyValue) {
+		String[] columns = new String[] { keyName };
+		String selection = keyName + "=?";
+		String[] selectionArgs = toArgs(keyValue);
+		boolean isExist = query(table, columns, selection, selectionArgs)
+				.getCount() > 0;
+		if (isExist) {
+			values.remove(keyName);
+			return update(table, values, selection, selectionArgs);
+		} else {
+			return insert(table, values);
+		}
+	}
+	
+	/**
+	 * <b>description :</b>		转换为字符数组
+	 * </br><b>time :</b>		2012-8-10 下午10:00:52
+	 * @param values
+	 * @return
+	 */
+	public static String[] toArgs(Object...values){
+        String[] args = new String[values.length];
+        for(int i=0;i<values.length;i++){
+            args[i] = String.valueOf(values[i]);
+        }
+        return args;
+    }
 	
 	/**
 	 * </br><b>title : </b>		删除数据
@@ -270,7 +309,9 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 * 在使用完数据库后，必须手动关闭。
 	 */
 	final public void close(){
-		if( null != mDatabase ) mDatabase.close();
+		if( null != mDatabase ){
+			mDatabase.close();
+		}
 	}
 
 	/**
@@ -294,7 +335,7 @@ public class SQLiteHelper extends SQLiteOpenHelper  {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		if( null == mSQLStatements){
+		if( null == mSQLStatements || mSQLStatements.length() <= 0){
 			Log.w(TAG," Empty SQL statements for database create/upgrade !");
 		}else{
 			execSQLStatements(db,formateToLine(mSQLStatements.toString()));

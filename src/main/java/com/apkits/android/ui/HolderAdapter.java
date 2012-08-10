@@ -84,8 +84,16 @@ public class HolderAdapter<E> extends BaseAdapter {
 	}
 	
 	/**
-	 * </br><b>title : </b>		添加数据集
-	 * </br><b>description :</b>添加数据集，向数据缓存中添加多个元素。
+	 * <b>description :</b>		清除缓存数据
+	 * </br><b>time :</b>		2012-8-10 下午9:52:56
+	 */
+	public void clear(){
+		if( null != mDataCache ){
+			mDataCache.clear();
+		}
+	}
+	/**
+	 * <b>description :</b>添加数据集，向数据缓存中添加多个元素。
 	 * </br><b>time :</b>		2012-7-17 下午10:19:45
 	 * @param set
 	 */
