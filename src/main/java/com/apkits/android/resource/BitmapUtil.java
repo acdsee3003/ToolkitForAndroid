@@ -16,13 +16,19 @@
 package com.apkits.android.resource;
 
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 /**
  * </br><b>name : </b>		BitmapScaleUitl
- * </br><b>description :</b>图片缩放工具。从Android 2.2 版本的BitmapUtil中扣出来的，兼容到1.6版本
+ * </br><b>description :</b>图片工具。从Android 2.2 版本的BitmapUtil中扣出来的，兼容到1.6版本
  * </br>@author : 			桥下一粒砂
  * </br><b>e-mail : </b>	chenyoca@gmail.com
  * </br><b>weibo : </b>		@桥下一粒砂
@@ -38,22 +44,48 @@ public class BitmapUtil {
 	public static final int OPTIONS_RECYCLE_INPUT = 0x2;
 
 	/**
-	 * 指定长度宽度进行缩放
-	 * @param source 源图
-	 * @param targetWidth 长度
-	 * @param targetHeight 宽度
-	 * @return 缩放后的新对象
+	 * <b>description :</b>		将图片切成圆角图
+	 * </br><b>time :</b>		2012-8-10 下午10:27:52
+	 * @param bitmap			源图片
+	 * @param pixels			需要切角的像素大小
+	 * @return
+	 */
+	public static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {  
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);  
+        Canvas canvas = new Canvas(output);  
+        final Paint paint = new Paint();  
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());  
+        final RectF rectF = new RectF(rect);  
+        final float roundPx = pixels;  
+  
+        paint.setAntiAlias(true);  
+        canvas.drawARGB(0, 0, 0, 0);  
+        paint.setColor(Color.TRANSPARENT);  
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);  
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));  
+        canvas.drawBitmap(bitmap, rect, rect, paint);  
+        return output;  
+    }
+	
+	/**
+	 * <b>description :</b>		指定长度宽度进行缩放
+	 * </br><b>time :</b>		2012-8-10 下午10:29:24
+	 * @param source			源图
+	 * @param targetWidth		目标宽度
+	 * @param targetHeight		目标高度
+	 * @return
 	 */
 	public static Bitmap extractThumbnail(Bitmap source, int targetWidth, int targetHeight) {
 		return extractThumbnail(source, targetWidth, targetHeight, OPTIONS_NONE);
 	}
 
 	/**
-	 * 按比例缩放
-	 * @param source 源图
-	 * @param targetWidth 目标宽度
-	 * @param targetHeight 目标高度
-	 * @return 缩放后的新对象
+	 * <b>description :</b>		按比例缩放
+	 * </br><b>time :</b>		2012-8-10 下午10:30:27
+	 * @param source			源图
+	 * @param targetWidth		目标宽度
+	 * @param targetHeight		目标高度
+	 * @return
 	 */
 	public static Bitmap prorateThumbnail(Bitmap source, int targetWidth, int targetHeight) {
 		if (source == null) {
@@ -73,7 +105,6 @@ public class BitmapUtil {
 		if (source == null) {
 			return null;
 		}
-
 		float scale;
 		if (source.getWidth() < source.getHeight()) {
 			scale = targetWidth / (float) source.getWidth();
@@ -97,16 +128,8 @@ public class BitmapUtil {
 		int deltaX = source.getWidth() - targetWidth;
 		int deltaY = source.getHeight() - targetHeight;
 		if (!scaleUp && (deltaX < 0 || deltaY < 0)) {
-			/**
-			 * In this case the bitmap is smaller, at least in one dimension,
-			 * than the target. Transform it by placing as much of the image as
-			 * possible into the target and leaving the top/bottom or left/right
-			 * (or both) black.
-			 */
-			Bitmap b2 = Bitmap.createBitmap(targetWidth, targetHeight,
-					Bitmap.Config.ARGB_8888);
+			Bitmap b2 = Bitmap.createBitmap(targetWidth, targetHeight,Bitmap.Config.ARGB_8888);
 			Canvas c = new Canvas(b2);
-
 			int deltaXHalf = Math.max(0, deltaX / 2);
 			int deltaYHalf = Math.max(0, deltaY / 2);
 			Rect src = new Rect(deltaXHalf, deltaYHalf, deltaXHalf
@@ -146,29 +169,21 @@ public class BitmapUtil {
 
 		Bitmap b1;
 		if (scaler != null) {
-			// this is used for minithumb and crop, so we want to filter here.
-			b1 = Bitmap.createBitmap(source, 0, 0, source.getWidth(),
-					source.getHeight(), scaler, true);
+			b1 = Bitmap.createBitmap(source, 0, 0, source.getWidth(),source.getHeight(), scaler, true);
 		} else {
 			b1 = source;
 		}
-
 		if (recycle && b1 != source) {
 			source.recycle();
 		}
-
 		int dx1 = Math.max(0, b1.getWidth() - targetWidth);
 		int dy1 = Math.max(0, b1.getHeight() - targetHeight);
-
-		Bitmap b2 = Bitmap.createBitmap(b1, dx1 / 2, dy1 / 2, targetWidth,
-				targetHeight);
-
+		Bitmap b2 = Bitmap.createBitmap(b1, dx1 / 2, dy1 / 2, targetWidth, targetHeight);
 		if (b2 != b1) {
 			if (recycle || b1 != source) {
 				b1.recycle();
 			}
 		}
-
 		return b2;
 	}
 }

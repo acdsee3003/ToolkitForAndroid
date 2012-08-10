@@ -96,14 +96,10 @@ public class GalleryFlipper extends FrameLayout {
 	 */
 	private final int SWIPE_THRESHOLD_VELOICTY = 600;
 
-	// Properties
-
 	private int mViewPaddingWidth = 0;
 	private int mAnimationDuration = 320;
 	private float mSnapBorderRatio = 0.5f;
 	private boolean mIsGalleryCircular = true;
-
-	// Members
 
 	private int mGalleryWidth = 0;
 	private boolean mIsTouched = false;
