@@ -72,7 +72,7 @@ public class WebImageView extends ImageView {
 			try {
 				img = StreamUtil.convertBitmap(mContext.openFileInput(msg.obj.toString()));
 				if( mResize[0] > MIN_WIDTH_HEIGHT && mResize[1] > MIN_WIDTH_HEIGHT){
-					img = BitmapUtil.extractThumbnail(img, mResize[0], mResize[1]);
+					img = BitmapUtil.extract(img, mResize[0], mResize[1]);
 				}
 			} catch (IOException e) {
 				Log.e(TAG,"Cannot convert file to image !");
@@ -149,8 +149,8 @@ public class WebImageView extends ImageView {
 						is.close();
 					} catch (IOException e) {
 						Log.e(TAG,String.format("Cannot fetch image from url (%) !", url));
+						e.printStackTrace();
 					}
-					
 					Message msg = new Message();
 					msg.obj = tempFile;
 					mUpdateCallback.sendMessage(msg);

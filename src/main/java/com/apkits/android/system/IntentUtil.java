@@ -20,8 +20,8 @@ import android.content.Intent;
 /**
  * <ul>
  * <li><b>name : </b>		IntentUtil		</li>
- * <li><b>description :</b>	TODO				</li>
- * <li></b>author : </b>			桥下一粒砂			</li>
+ * <li><b>description :</b>	创建一些常用Intent的工具				</li>
+ * <li></b>author : </b>	桥下一粒砂			</li>
  * <li><b>e-mail : </b>		chenyoca@gmail.com	</li>
  * <li><b>weibo : </b>		@桥下一粒砂			</li>
  * <li><b>date : </b>		2012-8-10 下午9:54:03		</li>

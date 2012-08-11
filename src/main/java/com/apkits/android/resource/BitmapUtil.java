@@ -37,11 +37,11 @@ import android.graphics.RectF;
  */
 public class BitmapUtil {
 
-	private static final int OPTIONS_NONE = 0x0;
-	
-	private static final int OPTIONS_SCALE_UP = 0x1;
-
-	public static final int OPTIONS_RECYCLE_INPUT = 0x2;
+	public interface Option{
+		int NONE = 0x0;
+		int SCALE_UP = 0x1;
+		int RECYCLE_INPUT = 0x2;
+	}
 
 	/**
 	 * <b>description :</b>		将图片切成圆角图
@@ -50,7 +50,7 @@ public class BitmapUtil {
 	 * @param pixels			需要切角的像素大小
 	 * @return
 	 */
-	public static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {  
+	public static Bitmap fillet(Bitmap bitmap, int pixels) {  
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);  
         Canvas canvas = new Canvas(output);  
         final Paint paint = new Paint();  
@@ -60,7 +60,7 @@ public class BitmapUtil {
   
         paint.setAntiAlias(true);  
         canvas.drawARGB(0, 0, 0, 0);  
-        paint.setColor(Color.TRANSPARENT);  
+        paint.setColor(Color.BLACK);  
         canvas.drawRoundRect(rectF, roundPx, roundPx, paint);  
         paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));  
         canvas.drawBitmap(bitmap, rect, rect, paint);  
@@ -75,8 +75,8 @@ public class BitmapUtil {
 	 * @param targetHeight		目标高度
 	 * @return
 	 */
-	public static Bitmap extractThumbnail(Bitmap source, int targetWidth, int targetHeight) {
-		return extractThumbnail(source, targetWidth, targetHeight, OPTIONS_NONE);
+	public static Bitmap extract(Bitmap source, int targetWidth, int targetHeight) {
+		return extractThumbnail(source, targetWidth, targetHeight, Option.NONE);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class BitmapUtil {
 	 * @param targetHeight		目标高度
 	 * @return
 	 */
-	public static Bitmap prorateThumbnail(Bitmap source, int targetWidth, int targetHeight) {
+	public static Bitmap prorate(Bitmap source, int targetWidth, int targetHeight) {
 		if (source == null) {
 			return null;
 		}
@@ -98,7 +98,7 @@ public class BitmapUtil {
 		} else { 
 			targetWidth = srcWidth * targetHeight / srcHeight;
 		}
-		return extractThumbnail(source, targetWidth, targetHeight, OPTIONS_NONE);
+		return extractThumbnail(source, targetWidth, targetHeight, Option.NONE);
 	}
 
 	private static Bitmap extractThumbnail(Bitmap source, int targetWidth,int targetHeight, int options) {
@@ -113,7 +113,7 @@ public class BitmapUtil {
 		}
 		Matrix matrix = new Matrix();
 		matrix.setScale(scale, scale);
-		Bitmap thumbnail = transform(matrix, source, targetWidth, targetHeight,OPTIONS_SCALE_UP | options);
+		Bitmap thumbnail = transform(matrix, source, targetWidth, targetHeight,Option.SCALE_UP | options);
 		return thumbnail;
 	}
 
@@ -122,8 +122,8 @@ public class BitmapUtil {
 	 */
 	private static Bitmap transform(Matrix scaler, Bitmap source,
 			int targetWidth, int targetHeight, int options) {
-		boolean scaleUp = (options & OPTIONS_SCALE_UP) != 0;
-		boolean recycle = (options & OPTIONS_RECYCLE_INPUT) != 0;
+		boolean scaleUp = (options & Option.SCALE_UP) != 0;
+		boolean recycle = (options & Option.RECYCLE_INPUT) != 0;
 
 		int deltaX = source.getWidth() - targetWidth;
 		int deltaY = source.getHeight() - targetHeight;
