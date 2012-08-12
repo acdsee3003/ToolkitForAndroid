@@ -153,7 +153,7 @@ public abstract class SplashActivity extends BaseActivity{
 	 * 设置启动动画显示后的UI
 	 * @return Activity的Class
 	 */
-	protected abstract Class<? extends Activity> nextActivity();
+	protected abstract Class<?> nextActivity();
 	
 	/**
 	 * 创建动画Layout
