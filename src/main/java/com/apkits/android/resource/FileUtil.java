@@ -247,7 +247,7 @@ public class FileUtil {
 		if( path.length() <= 5) throw new IllegalArgumentException("Path too short !");
 		boolean hasFileName = path.substring(path.length() - 5, path.length()).contains(".");
 		if (hasFileName) {
-			return path.substring(path.lastIndexOf("/") + 1);
+			return path.substring(path.lastIndexOf(File.separator) + 1);
 		} else {
 			return null;
 		}
