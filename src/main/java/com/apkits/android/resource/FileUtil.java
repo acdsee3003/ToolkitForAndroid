@@ -227,10 +227,9 @@ public class FileUtil {
 	}
 	
 	/**
-	 * </br><b>title : </b>		创建一个文件夹。
-	 * </br><b>description :</b>创建一个文件夹。
+	 * <b>description :</b>		创建一个文件夹。
 	 * </br><b>time :</b>		2012-7-8 下午5:13:25
-	 * @param directory			需要被创建的文件夹
+	 * @param directory
 	 * @return					创建成功则返回true，否则返回false。
 	 * @throws IOException
 	 */
@@ -238,6 +237,21 @@ public class FileUtil {
 		return makeDirectory(directory, false);
 	}
 
+	/**
+	 * <b>description :</b>		提取文件名
+	 * </br><b>time :</b>		2012-8-16 下午7:51:40
+	 * @param path
+	 * @return
+	 */
+	public static String extractFileName(String path) {
+		if( path.length() <= 5) throw new IllegalArgumentException("Path too short !");
+		boolean hasFileName = path.substring(path.length() - 5, path.length()).contains(".");
+		if (hasFileName) {
+			return path.substring(path.lastIndexOf("/") + 1);
+		} else {
+			return null;
+		}
+	}
 	/**
 	 * </br><b>title : </b>		创建一个文件夹
 	 * </br><b>description :</b>如果<i>createParents</i> 被标记为true，则父级文件夹不存在将会被自动创建。

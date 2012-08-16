@@ -21,7 +21,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -351,12 +350,25 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	 */
 	private String[] formateToLine(String sqlGroup){
 		StringBuffer sqlTemp = new StringBuffer();
-		for(String line : sqlGroup.split("\n")){
-			if( !TextUtils.isEmpty(line) && !line.startsWith("--") ){
+		for(String line : sqlGroup.split(System.getProperty("line.separator"))){
+			if( !isEmptyLine(line) && !line.startsWith("--") ){
 				sqlTemp.append(line);
 			}
 		}
 		return sqlTemp.toString().split(";");
+	}
+	
+	/**
+	* description :判断是否为空行
+	* time : 2012-8-15 下午10:48:56
+	* @Param sqlGroup
+	* @return
+	*/
+	private boolean isEmptyLine(String str) {
+		if (null != str) {
+			str = str.replace(" ", "").replace("\t", "").replace(System.getProperty("line.separator"), "");
+		}
+		return (null == str || str.length() == 0 || "".equals(str));
 	}
 	
 	/**

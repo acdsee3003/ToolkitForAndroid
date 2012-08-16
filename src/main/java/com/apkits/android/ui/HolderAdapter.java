@@ -140,17 +140,16 @@ public class HolderAdapter<E> extends BaseAdapter {
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
-		//Holder View模式实现
-		ViewHolder holder = null;
+		// Holder View模式实现
 		if (convertView == null) {
-		    holder = new ViewHolder();
-		    convertView = mCreator.createView(mInflater, position, getItem(position));
-		    convertView.setTag(holder);
-		    holder.view = convertView;
+			ViewHolder holder = new ViewHolder();
+			convertView = mCreator.createView(mInflater, position,getItem(position));
+			holder.view = convertView;
+			convertView.setTag(holder);
 		} else {
-		    holder = (ViewHolder)convertView.getTag();
+			ViewHolder holder = (ViewHolder) convertView.getTag();
+			mCreator.updateView(holder.view, position, getItem(position));
 		}
-		mCreator.updateView(holder.view,position, getItem(position));
 		return convertView;
 	}
 }

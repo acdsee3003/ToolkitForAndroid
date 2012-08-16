@@ -492,10 +492,8 @@ public class GalleryFlipper extends FrameLayout {
 			}
 
 			if (mAdapter != null) {
-				if (newPosition >= getFirstPosition()
-						&& newPosition <= getLastPosition()) {
-					mExternalView = mAdapter.getView(newPosition,
-							mExternalView, mInternalLayout);
+				if (newPosition >= getFirstPosition() && newPosition <= getLastPosition()) {
+					mExternalView = mAdapter.getView(newPosition,mExternalView, mInternalLayout);
 				} else {
 					mExternalView = mInvalidLayout;
 				}

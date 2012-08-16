@@ -46,7 +46,11 @@ import com.apkits.android.resource.BitmapUtil;
  */
 public class WebImageView extends ImageView {
 
+	/**
+	 * 图片的最小宽高
+	 */
 	public static final int MIN_WIDTH_HEIGHT = 10;
+	
 	/**
 	 * 调试信息输出
 	 */
@@ -71,18 +75,30 @@ public class WebImageView extends ImageView {
 			Bitmap img = null;
 			try {
 				img = StreamUtil.convertBitmap(mContext.openFileInput(msg.obj.toString()));
-				if( mResize[0] > MIN_WIDTH_HEIGHT && mResize[1] > MIN_WIDTH_HEIGHT){
-					img = BitmapUtil.extract(img, mResize[0], mResize[1]);
-				}
 			} catch (IOException e) {
 				Log.e(TAG,"Cannot convert file to image !");
 			} 
+			img = resize(img);
 			if( null != img ){
 				WebImageView.this.setImageBitmap(img);
 			}
 			WebImageView.this.invalidate();
 		}
 	};
+	
+	/**
+	 * <b>description :</b>		调整图片大小
+	 * </br><b>time :</b>		2012-8-16 下午7:40:12
+	 * @param img
+	 * @return
+	 */
+	private Bitmap resize(Bitmap img){
+		if( mResize[0] > MIN_WIDTH_HEIGHT && mResize[1] > MIN_WIDTH_HEIGHT){
+			return BitmapUtil.extract(img, mResize[0], mResize[1]);
+		}else{
+			return img;
+		}
+	}
 	
 	/**
 	 * </br><b>title : </b>		设置图片大小
@@ -124,7 +140,7 @@ public class WebImageView extends ImageView {
 	 * </br><b>time :</b>		2012-8-4 下午4:03:19
 	 * @param url
 	 */
-	public void setImageUrl(final String url){
+	public void fetchFromUrl(final String url){
 		//对URL以SHA-1加密并命名
 		final String tempFile = HashEncrypt.encode(CryptType.SHA1, url);
 		//是否在缓存
@@ -158,6 +174,5 @@ public class WebImageView extends ImageView {
 			}).start();
 		}
 	}
-
 
 }

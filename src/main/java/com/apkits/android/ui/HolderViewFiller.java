@@ -97,7 +97,8 @@ public class HolderViewFiller<T> {
 				view.setAdapter(holderAdapter);
 			}
 		} catch (ClassCastException ex) {
-			new RuntimeException(String.format("Adapter in View(%s) is not a HolderAdapter!", view.getClass().getName()));
+			throw new IllegalArgumentException(
+					String.format("Adapter in View(%s) is not a HolderAdapter!", view.getClass().getName()));
 		}
 		return holderAdapter;
 	}

@@ -44,14 +44,14 @@ public class ApkUtil {
 	 * @param packageName
 	 * @return
 	 */
-	public boolean exist(Context context, String packageName) {
+	public static boolean exist(Context context, String packageName) {
 		if (null == packageName || "".equals(packageName)) {
 			throw new IllegalArgumentException("Package name cannot be null or empty !");
 		}
 		try {
 			ApplicationInfo info = context.getPackageManager()
 					.getApplicationInfo(packageName,PackageManager.GET_UNINSTALLED_PACKAGES);
-			return null == info;
+			return null != info;
 		} catch (NameNotFoundException e) {
 			return false;
 		}
