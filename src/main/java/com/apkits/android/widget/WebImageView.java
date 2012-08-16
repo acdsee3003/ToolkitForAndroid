@@ -109,7 +109,8 @@ public class WebImageView extends ImageView {
 	 */
 	public void setImageSize(int width,int height){
 		if( width < MIN_WIDTH_HEIGHT || height < MIN_WIDTH_HEIGHT ){
-			throw new IllegalArgumentException(String.format("Image size width or height must greater than %d !",MIN_WIDTH_HEIGHT));
+			throw new IllegalArgumentException(
+					String.format("Image size width or height must greater than %d !",MIN_WIDTH_HEIGHT));
 		}else{
 			mResize = new int[]{width,height};
 		}

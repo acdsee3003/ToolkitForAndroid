@@ -31,23 +31,12 @@ import android.widget.GridView;
  */
 public class LongGridView extends GridView {
 
-	/**
-	 * </br><b>description : </b>	TODO
-	 * @param context
-	 * @param attrs
-	 */
 	public LongGridView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO
 	}
 
-	/**
-	 * </br><b>description : </b>	TODO
-	 * @param context
-	 */
 	public LongGridView(Context context) {
 		super(context);
-		// TODO
 	}
 	
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
