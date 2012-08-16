@@ -15,6 +15,8 @@
  */
 package com.apkits.android.system;
 
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -70,8 +72,15 @@ public class PhoneUtil {
 		return tm.getLine1Number();
 	}
 	
-	public static void sendSms(String addr,String content){
-//		SmsManager smsManager = SmsManager.getDefault();
-//		smsManager.sendTextMessage(addr, null, content, il, null); 
+	/**
+	 * <b>description :</b>		判断手机号码
+	 * </br><b>time :</b>		2012-8-16 下午10:03:26
+	 * @param number
+	 * @return
+	 */
+	public static boolean isMobileNumber(String number){
+		Pattern pattern = Pattern.compile("^((13[0-9])|(15[^4,//D])|(18[0,5-9]))\\d{8}$");
+        return pattern.matcher(number).matches();
 	}
+	
 }
