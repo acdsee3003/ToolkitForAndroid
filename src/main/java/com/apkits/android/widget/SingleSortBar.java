@@ -125,13 +125,14 @@ public class SingleSortBar extends LinearLayout {
         }
     }
     
-    /**
-     * @Title: create
-     * @Description:    创建指定索引的SortBar数据条目
-     * @param index      
-     * @param data
-     * @param selectedItem
-     */
+   /**
+    * @Title: create
+    * @Description: 创建指定索引的SortBar数据条目
+    * @param bgResId
+    * @param index
+    * @param data
+    * @param selectedItem
+    */
     public void create(int bgResId,int index,List<String> data,int selectedItem){
         if( index < 0 || index >= mSelectedIndexs.length ) {
             throw new IllegalArgumentException("Out of index for SingleSortBar items!");
