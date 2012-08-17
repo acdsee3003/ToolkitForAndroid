@@ -68,8 +68,8 @@ public class StreamUtil {
 	public static StringBuffer convertToStringBuffer(InputStream is) throws IOException{
 		StringBuffer buffer = new StringBuffer();
 		byte[] cache = new byte[ 1 * 1024 ];
-		for (int i; (i = is.read(cache)) != -1;) {
-			buffer.append(new String(cache, 0, i));
+		for (int len; (len = is.read(cache)) != -1;) {
+			buffer.append(new String(cache, 0, len));
 		}
 		is.close();
 		return buffer;
@@ -96,10 +96,9 @@ public class StreamUtil {
 	public static byte[] convertToByteArray(InputStream is) throws IOException{
 		byte[] cache = new byte[1 * 1024];
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		int length = 0;
-		while ((length = is.read(cache)) != -1) {
-			buffer.write(cache, 0, length);
-		}
+		for (int length; (length = is.read(cache)) != -1;) {
+		    buffer.write(cache, 0, length);
+        }
 		is.close();
 		return buffer.toByteArray();
 	}

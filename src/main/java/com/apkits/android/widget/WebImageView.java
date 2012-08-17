@@ -69,7 +69,7 @@ public class WebImageView extends ImageView {
 	/**
 	 * 下载更新回调
 	 */
-	private Handler mUpdateCallback = new Handler(){
+	private Handler mDownloadCallback = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
 			Bitmap img = null;
@@ -77,6 +77,8 @@ public class WebImageView extends ImageView {
 				img = StreamUtil.convertBitmap(mContext.openFileInput(msg.obj.toString()));
 			} catch (IOException e) {
 				Log.e(TAG,"Cannot convert file to image !");
+				e.printStackTrace();
+				return;
 			} 
 			img = resize(img);
 			if( null != img ){
@@ -93,7 +95,7 @@ public class WebImageView extends ImageView {
 	 * @return
 	 */
 	private Bitmap resize(Bitmap img){
-		if( mResize[0] > MIN_WIDTH_HEIGHT && mResize[1] > MIN_WIDTH_HEIGHT){
+		if( null != img && mResize[0] >= MIN_WIDTH_HEIGHT && mResize[1] >= MIN_WIDTH_HEIGHT){
 			return BitmapUtil.extract(img, mResize[0], mResize[1]);
 		}else{
 			return img;
@@ -101,8 +103,7 @@ public class WebImageView extends ImageView {
 	}
 	
 	/**
-	 * </br><b>title : </b>		设置图片大小
-	 * </br><b>description :</b>强制大小，不按比例缩放。图片宽高必须大小10。
+	 * <b>description :</b>设置图片大小。强制大小，不按比例缩放。图片宽高必须大小10。
 	 * </br><b>time :</b>		2012-8-4 下午4:42:50
 	 * @param width
 	 * @param height
@@ -136,19 +137,17 @@ public class WebImageView extends ImageView {
 	}
 	
 	/**
-	 * </br><b>title : </b>		设置网络图片地址
-	 * </br><b>description :</b>首先从缓存文件夹中读取，再从网络下载。
+	 * </br><b>description :</b>从网络地址上加载图片。首先从缓存文件夹中读取，再从网络下载。
 	 * </br><b>time :</b>		2012-8-4 下午4:03:19
 	 * @param url
 	 */
 	public void fetchFromUrl(final String url){
-		//对URL以SHA-1加密并命名
-		final String tempFile = HashEncrypt.encode(CryptType.SHA1, url);
+	    final String tempFile = HashEncrypt.encode(CryptType.SHA1, url);
 		//是否在缓存
 		if(mContext.getFileStreamPath(tempFile).exists()){
 			Message msg = new Message();
 			msg.obj = tempFile;
-			mUpdateCallback.sendMessage(msg);
+			mDownloadCallback.sendMessage(msg);
 		}else{
 			//下载
 			new Thread(new Runnable(){
@@ -157,23 +156,22 @@ public class WebImageView extends ImageView {
 					try {
 						InputStream is = HttpConnection.get(url);
 						FileOutputStream os = mContext.openFileOutput(tempFile, Context.MODE_PRIVATE);
-						byte[] bytes = new byte[ 1 * 512 ]; 
-						int bufferSize = 0;
-						while((bufferSize = is.read(bytes)) != -1){
-							os.write(bytes, 0, bufferSize);
+						byte[] cache = new byte[ 1 * 1024 ]; 
+						for(int len = 0;(len = is.read(cache)) != -1;){
+						    os.write(cache, 0, len);
 						}
 						os.close();
 						is.close();
 					} catch (IOException e) {
 						Log.e(TAG,String.format("Cannot fetch image from url (%) !", url));
 						e.printStackTrace();
+						return;
 					}
 					Message msg = new Message();
 					msg.obj = tempFile;
-					mUpdateCallback.sendMessage(msg);
+					mDownloadCallback.sendMessage(msg);
 				}
 			}).start();
 		}
 	}
-
 }

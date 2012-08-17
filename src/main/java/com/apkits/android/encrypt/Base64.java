@@ -83,8 +83,7 @@ public class Base64 {
 	}
 
 	/**
-	 * </br><b>title : </b>		Base64解密
-	 * </br><b>description :</b>TODO
+	 * <b>description :</b>Base64解密
 	 * </br><b>time :</b>		2012-8-4 下午2:46:30
 	 * @param str
 	 * @return
