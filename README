@@ -26,7 +26,7 @@ SDK版本：Android SDK 2.2
 
 详细说明：
 
-	StreamConverter	对InputStream进行各类型数据的转换。转换类型包括Drawabel,Bitmap,String,byte[]等。
+	StreamUtil     	对InputStream进行各类型数据的转换。转换类型包括Drawabel,Bitmap,String,byte[]等。
 
 	Base64 			Base64加密解密
 

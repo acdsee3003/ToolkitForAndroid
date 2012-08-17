@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.apkits.android.app;
+package com.apkits.android.system;
 
-import com.apkits.android.system.DClickExit;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.apkits.android.app;
+package com.apkits.android.system;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 
-import com.apkits.android.system.ActivityUtil;
 
 /**
  * <ul>
