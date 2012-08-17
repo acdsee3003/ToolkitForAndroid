@@ -29,7 +29,7 @@ import android.net.wifi.WifiManager;
  * </br><b>date : </b>		2012-7-18 下午7:43:52
  *
  */
-public class NetworkUtil {
+public class Network {
 
 	/**
 	 * </br><b>title : </b>		网络是否可用

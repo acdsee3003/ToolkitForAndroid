@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import com.apkits.android.common.StreamUtil;
 import com.apkits.android.encrypt.HashEncrypt;
 import com.apkits.android.encrypt.HashEncrypt.CryptType;
-import com.apkits.android.network.HttpConnection;
+import com.apkits.android.network.Http;
 import com.apkits.android.resource.BitmapUtil;
 
 /**
@@ -154,7 +154,7 @@ public class WebImageView extends ImageView {
 				@Override
 				public void run() {
 					try {
-						InputStream is = HttpConnection.get(url);
+						InputStream is = Http.get(url);
 						FileOutputStream os = mContext.openFileOutput(tempFile, Context.MODE_PRIVATE);
 						byte[] cache = new byte[ 1 * 1024 ]; 
 						for(int len = 0;(len = is.read(cache)) != -1;){

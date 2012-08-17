@@ -1,6 +1,6 @@
 package com.apkits.android.system;
 
-import com.apkits.android.network.NetworkUtil;
+import com.apkits.android.network.Network;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -45,7 +45,7 @@ public class ThreadTask {
 
     private static void handle(boolean useNetwork,final Activity context,final Handler callback,final Runnable targetThread){
         //先检测网络
-        if(useNetwork && !NetworkUtil.isAvailable(context)){
+        if(useNetwork && !Network.isAvailable(context)){
             callback.sendEmptyMessage(Status.NETWORK_NOT_AVAILABLE);
             return;
         }
