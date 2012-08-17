@@ -63,6 +63,8 @@ SDK版本：Android SDK 2.2
 	ThreadTask		启动一个线程任务，并显示一个进度窗口。
 
 	HolderAdapter	实现HolderView模式的Adapter。
+	
+	SingleSortBar   排序条
 
 	HolderViewFiller	对ListView，GridView等重复性容器进行填充的工具
 
