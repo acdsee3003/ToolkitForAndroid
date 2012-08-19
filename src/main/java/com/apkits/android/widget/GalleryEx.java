@@ -63,6 +63,16 @@ public class GalleryEx extends Gallery {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see android.widget.Gallery#onLayout(boolean, int, int, int, int)
+	 */
+	@Override
+	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+		super.onLayout(changed, l, t, r, b);
+		//解决重叠问题
+		setSpacing(10);
+	}
+	
 	public boolean onTouchEvent(MotionEvent event) {
 		int action = event.getAction();
 		if (MotionEvent.ACTION_DOWN == action) {
@@ -105,6 +115,11 @@ public class GalleryEx extends Gallery {
 		return super.onTouchEvent(event);
 	}
 	
+	/**
+	 * <b>description :</b>		动画
+	 * </br><b>time :</b>		2012-8-19 下午1:02:32
+	 * @return
+	 */
 	private Animation genAnimation(){
 		TranslateAnimation translate = new TranslateAnimation(mTouchEndX, mTouchEndX, 0, 0);
 		translate.setDuration(25);
@@ -117,5 +132,4 @@ public class GalleryEx extends Gallery {
 		int kEvent = e2.getX() > e1.getX() ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
 		return onKeyDown(kEvent, null);
 	}
-
 }
