@@ -19,6 +19,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -32,14 +33,38 @@ import android.widget.ListView;
  * <li><b>date : </b>		2012-8-16 下午10:16:11		</li>
  * </ul>
  */
-public class LongListView extends ListView {
+public class ListViewEx extends ListView {
 
-	public LongListView(Context context, AttributeSet attrs) {
+	public ListViewEx(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 	
-	public LongListView(Context context) {
+	public ListViewEx(Context context) {
 		super(context);
+	}
+	
+	protected int mCurrentPage = 1;
+	
+	/**
+	 * @ClassName: OnPullNPushListener 
+	 * @Description: 下拉或者上拉时回调的接口
+	 * @author yongjia.chen
+	 * @date 2012-8-20 下午3:41:46
+	 *
+	 */
+	public interface OnPullNPushListener {
+	    /**
+	     * @Title: pullAtBottom
+	     * @Description: 如果下拉更新成功，返回true。
+	     * @return
+	     */
+	    boolean pullAtBottom();
+	    
+	    /**
+	     * @Title: pushAtTop
+	     * @Description: TODO
+	     */
+	    void pushAtTop();
 	}
 	
 	/**
@@ -57,6 +82,41 @@ public class LongListView extends ListView {
 		ViewGroup.LayoutParams params = this.getLayoutParams();
 		params.height = totalHeight + (this.getDividerHeight() * (this.getCount() - 1));
 		setLayoutParams(params);
+	}
+	
+	/**
+	 * @Title: enablePullNPush
+	 * @Description: 监听上拉和下拉
+	 * @param listener
+	 */
+	public void enablePullNPush(final OnPullNPushListener listener){
+	    setOnScrollListener(new OnScrollListener() {
+            
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if( OnScrollListener.SCROLL_STATE_IDLE == scrollState ){
+                    if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+                        if(listener.pullAtBottom()) mCurrentPage++;
+                    }else{
+                        listener.pushAtTop();
+                    }
+                }
+            }
+            
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                    int totalItemCount) {
+            }
+        });
+	}
+	
+	/**
+	 * @Title: getPageCount
+	 * @Description: 取得页码
+	 * @return
+	 */
+	public int getPageCount() {
+	    return mCurrentPage;
 	}
 	
 }

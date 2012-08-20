@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
 import com.apkits.android.common.StreamUtil;
@@ -82,7 +83,10 @@ public class WebImageView extends ImageView {
 			} 
 			img = resize(img);
 			if( null != img ){
+			    AlphaAnimation ani = new AlphaAnimation(0.3f, 1.0f);
+			    ani.setDuration(500);
 				WebImageView.this.setImageBitmap(img);
+				WebImageView.this.setAnimation(ani);
 			}
 			WebImageView.this.invalidate();
 		}
