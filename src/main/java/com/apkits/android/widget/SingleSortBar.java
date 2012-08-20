@@ -48,7 +48,7 @@ public class SingleSortBar extends LinearLayout {
     private List<Button> mSortButtons = new ArrayList<Button>();
     
     /** 数据列表 */
-    private List< List<String> > mDataArrays;
+    private List<String>[] mDataArrays;
     
     /** 被选择的索引 */
     private int[] mSelectedIndexs;
@@ -85,7 +85,7 @@ public class SingleSortBar extends LinearLayout {
         @Override
         public void onClick(DialogInterface dialog, int which){
             mSelectedIndexs[mIndex] = which;
-            String data = mDataArrays.get(mIndex).get(which);
+            String data = mDataArrays[mIndex].get(which);
             mSortButtons.get(mIndex).setText(data);
             dialog.dismiss();
             mListener.onSelected(mIndex,which, data);
@@ -98,9 +98,13 @@ public class SingleSortBar extends LinearLayout {
      * @param count      按钮数量     
      * @param bgResId
      */
+    @SuppressWarnings("unchecked")
     public void init(int count,OnSortItemSelectedListener listener){
         mListener = listener;
-        mDataArrays = new ArrayList<List<String>>(count);
+        mDataArrays = new List[count];
+        for(int i=0;i<count;i++){
+            mDataArrays[i] = new ArrayList<String>();
+        }
         mSelectedIndexs = new int[count];
         
         for(int i=0;i<count;i++){
@@ -112,7 +116,7 @@ public class SingleSortBar extends LinearLayout {
             item.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    List<String> data = mDataArrays.get(position);
+                    List<String> data = mDataArrays[position];
                     String[] cache = new String[data.size()]; 
                     data.toArray(cache);
                     AlertDialog ad = new AlertDialog.Builder(getContext())
@@ -137,7 +141,7 @@ public class SingleSortBar extends LinearLayout {
         if( index < 0 || index >= mSelectedIndexs.length ) {
             throw new IllegalArgumentException("Out of index for SingleSortBar items!");
         }
-        mDataArrays.add(index, data);
+        mDataArrays[index].addAll(data);
         Button item = mSortButtons.get(index);
         item.setText(data.get(selectedItem));
         item.setBackgroundResource(bgResId);
