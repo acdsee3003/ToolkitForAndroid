@@ -48,7 +48,7 @@ public class SingleSortBar extends LinearLayout {
     private List<Button> mSortButtons = new ArrayList<Button>();
     
     /** 数据列表 */
-    private List< List<String> > mDataArrays;
+    private List<String>[] mDataArrays;
     
     /** 被选择的索引 */
     private int[] mSelectedIndexs;
@@ -67,7 +67,22 @@ public class SingleSortBar extends LinearLayout {
      *
      */
     public interface OnSortItemSelectedListener{
-        void onSelected(int column,int index,String data);
+        /**
+         * @Title: onCurrentSelected
+         * @Description: 当前选择
+         * @param column    所在排序工具条的列
+         * @param index     所在列的序号
+         * @param data      所在列的数据
+         */
+        void onCurrentSelected(int column,int index,String data);
+        
+        /**
+         * @Title: totalSelection
+         * @Description: 全部的选择
+         * @param selectedIndexs
+         * @param data
+         */
+        void totalSelection(int[] selectedIndexs,String[] data);
     };
     
     /**
@@ -75,7 +90,6 @@ public class SingleSortBar extends LinearLayout {
      * @Description: 点击处理
      * @author yongjia.chen
      * @date 2012-8-17 下午2:38:49
-     *
      */
     private class ItemClickListener implements DialogInterface.OnClickListener{
         private int mIndex = 0;
@@ -85,25 +99,34 @@ public class SingleSortBar extends LinearLayout {
         @Override
         public void onClick(DialogInterface dialog, int which){
             mSelectedIndexs[mIndex] = which;
-            String data = mDataArrays.get(mIndex).get(which);
+            String data = mDataArrays[mIndex].get(which);
             mSortButtons.get(mIndex).setText(data);
             dialog.dismiss();
-            mListener.onSelected(mIndex,which, data);
+            mListener.onCurrentSelected(mIndex,which, data);
+            String[] datas = new String[mDataArrays.length];
+            for(int i=0;i<mDataArrays.length;i++){
+                datas[i] = mDataArrays[i].get(mSelectedIndexs[i]);
+            }
+            mListener.totalSelection(mSelectedIndexs,datas);
         }
     };
     
     /**
      * @Title: init
      * @Description:    初始化SortBar
-     * @param count      按钮数量     
+     * @param columnCount      按钮数量     
      * @param bgResId
      */
-    public void init(int count,OnSortItemSelectedListener listener){
+    @SuppressWarnings("unchecked")
+    public void init(int columnCount,OnSortItemSelectedListener listener){
         mListener = listener;
-        mDataArrays = new ArrayList<List<String>>(count);
-        mSelectedIndexs = new int[count];
+        mDataArrays = new List[columnCount];
+        for(int i=0;i<columnCount;i++){
+            mDataArrays[i] = new ArrayList<String>();
+        }
+        mSelectedIndexs = new int[columnCount];
         
-        for(int i=0;i<count;i++){
+        for(int i=0;i<columnCount;i++){
             final Button item = new Button(getContext());
             LayoutParams param = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
             mSortButtons.add(item);
@@ -112,7 +135,7 @@ public class SingleSortBar extends LinearLayout {
             item.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    List<String> data = mDataArrays.get(position);
+                    List<String> data = mDataArrays[position];
                     String[] cache = new String[data.size()]; 
                     data.toArray(cache);
                     AlertDialog ad = new AlertDialog.Builder(getContext())
@@ -125,21 +148,44 @@ public class SingleSortBar extends LinearLayout {
         }
     }
     
-    /**
-     * @Title: create
-     * @Description:    创建指定索引的SortBar数据条目
-     * @param index      
-     * @param data
-     * @param selectedItem
-     */
-    public void create(int bgResId,int index,List<String> data,int selectedItem){
-        if( index < 0 || index >= mSelectedIndexs.length ) {
+   /**
+    * @Title: create
+    * @Description: 创建指定索引的SortBar数据条目
+    * @param bgResId    按钮背景资源ID
+    * @param columnIndex    创建在哪一列上
+    * @param data           数据
+    * @param defSelectedIndex   默认选择哪一项
+    */
+    public void create(int bgResId,int columnIndex,List<String> data,int defSelectedIndex){
+        if( columnIndex < 0 || columnIndex >= mSelectedIndexs.length ) {
             throw new IllegalArgumentException("Out of index for SingleSortBar items!");
         }
-        mDataArrays.add(index, data);
-        Button item = mSortButtons.get(index);
-        item.setText(data.get(selectedItem));
+        mDataArrays[columnIndex].addAll(data);
+        Button item = mSortButtons.get(columnIndex);
+        item.setText(data.get(defSelectedIndex));
         item.setBackgroundResource(bgResId);
-        mSelectedIndexs[index] = selectedItem;
+        mSelectedIndexs[columnIndex] = defSelectedIndex;
+    }
+    
+    /**
+     * @Title: create
+     * @Description: 创建指定索引的SortBar数据条目
+     * @param bgResId    按钮背景资源ID
+     * @param columnIndex    创建在哪一列上
+     * @param data           数据
+     */
+     public void create(int bgResId,int columnIndex,List<String> data){
+         create(bgResId,columnIndex,data,0);
+     }
+    
+    /**
+     * @Title: select
+     * @Description: 选择某一项
+     * @param column
+     * @param selectedIndex
+     */
+    public void select(int column, int selectedIndex){
+        Button item = mSortButtons.get(column);
+        item.setText(mDataArrays[column].get(selectedIndex));
     }
 }
