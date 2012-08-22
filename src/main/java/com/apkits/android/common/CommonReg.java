@@ -83,7 +83,7 @@ public class CommonReg {
      * @param number
      * @return
      */
-    public static boolean isPersionName(String name){
+    public static boolean matchPersionName(String name){
         return null == name ? false : matcherRegex("^[\\w .\u00B7-]+$", name);
     }
 }
