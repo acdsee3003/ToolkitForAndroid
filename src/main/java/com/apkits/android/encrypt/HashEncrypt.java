@@ -18,15 +18,15 @@ package com.apkits.android.encrypt;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
 /**
- * </br><b>name : </b>		MD5
- * </br><b>description :</b>TODO
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-8-4 下午3:02:16
- *
+ * <ul>
+ * <li><b>name : </b>		HashEncrypt		</li>
+ * <li><b>description :</b>	HASH加密工具				</li>
+ * <li><b>author : </b>		桥下一粒砂			</li>
+ * <li><b>e-mail : </b>		chenyoca@gmail.com	</li>
+ * <li><b>weibo : </b>		@桥下一粒砂			</li>
+ * <li><b>date : </b>		2012-8-22 下午10:57:15		</li>
+ * </ul>
  */
 public class HashEncrypt {
 	

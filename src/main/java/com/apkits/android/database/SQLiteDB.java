@@ -36,19 +36,13 @@ import android.util.Log;
  */
 public class SQLiteDB extends SQLiteOpenHelper  {
 
-	/**
-	 * 调试输出标签
-	 */
+	/** 调试输出标签 */
 	private static final String TAG = "SQLiteHelper";
 	
-	/**
-	 * SQLite数据库对象
-	 */
+	/** SQLite数据库对象 */
 	private SQLiteDatabase mDatabase;
 	
-	/**
-	 * 是否打印SQL语句开关
-	 */
+	/**  是否打印SQL语句开关  */
 	private boolean mPrintSQL = false;
 	
 	/**
@@ -90,8 +84,7 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	}
 	
 	/**
-	 * </br><b>title : </b>		打印SQL语句
-	 * </br><b>description :</b>打印SQL语句
+	 * <b>description :</b>打印SQL语句
 	 * </br><b>time :</b>		2012-7-28 下午11:18:14
 	 */
 	public void enablePrintSQL(){
@@ -99,8 +92,7 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	}
 	
 	/**
-	 * </br><b>title : </b>		校验数据库
-	 * </br><b>description :</b>如果数据库没有被创建，调用此方法将会触发OnCreate()方法创建数据库。
+	 * <b>description :</b>如果数据库没有被创建，调用此方法将会触发OnCreate()方法创建数据库。
 	 * 需要 onCreateSQLFile() 返回创建数据库时执行的SQL文件。
 	 * </br><b>time :</b>		2012-7-8 下午2:30:13
 	 */
@@ -110,7 +102,6 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	}
 	
 	/**
-	 * </br><b>title : </b>		插入数据
 	 * </br><b>description :</b>插入数据
 	 * </br><b>time :</b>		2012-7-8 下午2:29:37
 	 * @param table 			需要插入数据的表名
@@ -140,8 +131,7 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 		String[] columns = new String[] { keyName };
 		String selection = keyName + "=?";
 		String[] selectionArgs = toArgs(keyValue);
-		boolean isExist = query(table, columns, selection, selectionArgs)
-				.getCount() > 0;
+		boolean isExist = query(table, columns, selection, selectionArgs).getCount() > 0;
 		if (isExist) {
 			values.remove(keyName);
 			return update(table, values, selection, selectionArgs);

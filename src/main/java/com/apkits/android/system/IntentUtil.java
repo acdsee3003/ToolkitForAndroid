@@ -62,6 +62,10 @@ public class IntentUtil {
 			intent.putExtra(key, (Float) val);
 		else if (val instanceof Float[])
 			intent.putExtra(key, (Float[]) val);
+		else{
+			throw new IllegalArgumentException("Not support data Type!");
+		}
+			
 	}
 	
 	/**

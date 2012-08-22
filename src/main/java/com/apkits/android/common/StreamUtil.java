@@ -35,11 +35,10 @@ import android.graphics.drawable.BitmapDrawable;
 public class StreamUtil {
 	
 	/**
-	 * </br><b>title : </b>		将InputStream流转换成BitmapDrawable。
-	 * </br><b>description :</b>BitmapDrawable是Drawable的直接子类，可用于Drawable对象
-	 * @param is InputStream对象
-	 * @return BitmapDrawable对象
-	 * @throws IOException 
+	 * <b>description :</b>	将InputStream流转换成BitmapDrawable。BitmapDrawable是Drawable的直接子类，可用于Drawable对象
+	 * @param is 			InputStream对象
+	 * @return 			BitmapDrawable对象
+	 * @throws 			IOException 
 	 */
 	public static BitmapDrawable converToBitmapDrawable(InputStream is) throws IOException{
 		BitmapDrawable bitmapDrawable = new BitmapDrawable(is);
@@ -48,10 +47,9 @@ public class StreamUtil {
 	}
 	
 	/**
-	 * </br><b>title : </b>		将InputStream流转换成Bitmap对象。
-	 * </br><b>description :</b>将InputStream流转换成Bitmap对象。
-	 * @param is InputStream对象
-	 * @return Bitmap对象
+	 * </br><b>description :</b>	将InputStream流转换成Bitmap对象。
+	 * @param is 					InputStream对象
+	 * @return 					Bitmap对象
 	 * @throws IOException 
 	 */
 	public static Bitmap convertBitmap(InputStream is) throws IOException{
@@ -59,10 +57,9 @@ public class StreamUtil {
 	}
 	
 	/**
-	 * </br><b>title : </b>		将InputStream转换成StringBuffer对象
-	 * </br><b>description :</b>将InputStream转换成StringBuffer对象。
-	 * @param is InputStream对象
-	 * @return StringBuffer对象
+	 * <b>description :</b>		将InputStream转换成StringBuffer对象。
+	 * @param is 				InputStream对象
+	 * @return 				StringBuffer对象
 	 * @throws IOException 
 	 */
 	public static StringBuffer convertToStringBuffer(InputStream is) throws IOException{
@@ -76,10 +73,9 @@ public class StreamUtil {
 	}
 	
 	/**
-	 * </br><b>title : </b>		将InputStream转换成String对象
-	 * </br><b>description :</b>将InputStream转换成String对象。
-	 * @param is InputStream对象
-	 * @return String对象。如果读取
+	 * <b>description :</b>	将InputStream转换成String对象。
+	 * @param is 					InputStream对象
+	 * @return 					String对象
 	 * @throws IOException 
 	 */
 	public static String converToString(InputStream is) throws IOException{
@@ -87,10 +83,9 @@ public class StreamUtil {
 	}
 	
 	/**
-	 * </br><b>title : </b>		将InputStream转换成字节数组
-	 * </br><b>description :</b>将InputStream转换成字节数组。
-	 * @param is InputStream对象
-	 * @return 字节数组
+	 * <b>description :</b>		将InputStream转换成字节数组。
+	 * @param is 				InputStream对象
+	 * @return 				字节数组
 	 * @throws IOException 
 	 */
 	public static byte[] convertToByteArray(InputStream is) throws IOException{

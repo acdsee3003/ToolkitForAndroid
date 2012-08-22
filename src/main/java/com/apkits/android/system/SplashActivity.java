@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,8 +32,9 @@ import android.widget.ImageView;
  * <li><b>date : </b>		2012-8-12 上午9:23:39		</li>
  * </ul>
  */
-public abstract class SplashActivity extends BaseActivity{
+public abstract class SplashActivity extends Activity{
 	
+	/** 调试数据输出 **/
 	private final static String TAG = "SplashActivity";
 	
 	/**
@@ -90,19 +92,13 @@ public abstract class SplashActivity extends BaseActivity{
 		int FINISHED = 1;
 	}
 	
-	/**
-	 * 动画持续时间
-	 */
+	/** 动画持续时间 */
 	private int mDuration = 1500;
 	
-	/**
-	 * 第一个动画被显示的时间间隔
-	 */
+	/**  第一个动画被显示的时间间隔  */
 	private final static int INIT_TIME = 100;
 	
-	/**
-	 * 动画资源数组
-	 */
+	/** 动画资源数组  */
 	private List<SplashResource> mSplashParams = new ArrayList<SplashResource>();
 	
 	private FrameLayout mLayout;
@@ -112,6 +108,8 @@ public abstract class SplashActivity extends BaseActivity{
 	protected int[] RndSplashArray = new int[]{0};
 	
 	private Boolean mWaiting = true;
+	
+	private BaseActivity mBaseInfo;
 	
 	/**
 	 * 设置启动界面背景颜色
@@ -158,12 +156,12 @@ public abstract class SplashActivity extends BaseActivity{
 	 * @return 返回创建的Layout
 	 */
 	private View createSplashLayout() {
-		mLayout = new FrameLayout(mContext);
+		mLayout = new FrameLayout(mBaseInfo.context);
 		ViewGroup.LayoutParams layoutParams = 
 				new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
 		mLayout.setLayoutParams(layoutParams);
 		mLayout.setBackgroundColor(getBackground());
-		mSplashStage = new ImageView(mContext);
+		mSplashStage = new ImageView(mBaseInfo.context);
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		params.gravity = Gravity.CENTER;
 		mLayout.addView(mSplashStage, params);
@@ -185,8 +183,8 @@ public abstract class SplashActivity extends BaseActivity{
 				mSplashStage.startAnimation(animation);
 			}else{
 				shouldSkipToNext();
-				mActivity.startActivity(new Intent(mActivity,nextActivity()));
-				mActivity.finish();
+				mBaseInfo.activity.startActivity(new Intent(mBaseInfo.activity,nextActivity()));
+				mBaseInfo.activity.finish();
 			}
 			super.handleMessage(msg);
 		}
@@ -235,8 +233,9 @@ public abstract class SplashActivity extends BaseActivity{
 	@Override
 	final protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActivityUtil.hideTitleBar(mActivity);
-		ActivityUtil.setFullScreen(mActivity, true);
+		mBaseInfo = new BaseActivity(this);
+		BaseActivity.hideTitleBar(mBaseInfo.activity);
+		BaseActivity.setFullScreen(mBaseInfo.activity, true);
 		setContentView(createSplashLayout());
 		addResource(mSplashParams);
 		onSplash();

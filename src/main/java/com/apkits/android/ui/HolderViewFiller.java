@@ -22,18 +22,22 @@ import android.widget.AbsListView;
 import android.widget.ListAdapter;
 
 /**
- * </br><b>name : </b> HolderViewFiller 
- * </br><b>description :</b>TODO
- * </br>@author : 桥下一粒砂 
- * </br><b>e-mail : </b> chenyoca@gmail.com 
- * </br><b>weibo : </b> @桥下一粒砂 
- * </br><b>date : </b> 2012-7-14 上午1:33:59
- * 
+ * <ul>
+ * <li><b>name : </b>		HolderViewFiller		</li>
+ * <li><b>description :</b>	TODO				</li>
+ * <li><b>author : </b>		桥下一粒砂			</li>
+ * <li><b>e-mail : </b>		chenyoca@gmail.com	</li>
+ * <li><b>weibo : </b>		@桥下一粒砂			</li>
+ * <li><b>date : </b>		2012-7-14 上午1:33:59		</li>
+ * </ul>
+ * @param <T>
  */
 public class HolderViewFiller<T> {
 
+	/** 从XML中创建对象 **/
 	private LayoutInflater mInflater;
 	
+	/** View创建器 **/
 	private ViewCreator<T> mCreator;
 
 	public HolderViewFiller(LayoutInflater inflater, ViewCreator<T> creator) {
@@ -42,14 +46,12 @@ public class HolderViewFiller<T> {
 	}
 
 	/**
-	 * </br><b>title : </b> 将数据更新到View中 
 	 * </br><b>description :</b>将数据更新到View中
 	 * </br><b>time :</b> 2012-7-18 下午7:41:55
-	 * 
 	 * @param view
 	 * @param data
 	 */
-	public void update(AbsListView view, List<T> data) {
+	public void reflesh(AbsListView view, List<T> data) {
 		HolderAdapter<T> holderAdapter = exportAdapter(view);
 		if (null != holderAdapter) {
 			holderAdapter.update(data);
@@ -57,7 +59,6 @@ public class HolderViewFiller<T> {
 	}
 
 	/**
-	 * </br><b>title : </b> 添加数据集 
 	 * </br><b>description :</b>添加数据集 
 	 * </br><b>time :</b> 2012-7-18 下午8:16:38
 	 * 

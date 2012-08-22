@@ -46,10 +46,9 @@ public class Base64 {
 			-1, -1 };
 
 	/**
-	 * </br><b>title : </b>		Base64加密
-	 * </br><b>description :</b>TODO
-	 * </br><b>time :</b>		2012-8-4 下午2:46:13
-	 * @param data
+	 * </br><b>description :</b>	Base64加密
+	 * </br><b>time :</b>			2012-8-4 下午2:46:13
+	 * @param data					需要加密的字节数组数据
 	 * @return
 	 */
 	public static String encode(byte[] data) {
@@ -83,10 +82,10 @@ public class Base64 {
 	}
 
 	/**
-	 * <b>description :</b>Base64解密
+	 * <b>description :</b>		Base64解密
 	 * </br><b>time :</b>		2012-8-4 下午2:46:30
-	 * @param str
-	 * @return
+	 * @param str				密文
+	 * @return					解密后的字节数据
 	 * @throws UnsupportedEncodingException
 	 */
 	public static byte[] decode(String str) throws UnsupportedEncodingException {
