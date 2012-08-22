@@ -68,6 +68,12 @@ public class SingleSortBar extends LinearLayout {
      */
     public interface OnSortItemSelectedListener{
         /**
+         * @Title: isSelecteEnable
+         * @Description: 工具条是否可用
+         * @return
+         */
+        boolean isSelecteEnable();
+        /**
          * @Title: onCurrentSelected
          * @Description: 当前选择
          * @param column    所在排序工具条的列
@@ -135,6 +141,7 @@ public class SingleSortBar extends LinearLayout {
             item.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!mListener.isSelecteEnable()) return;
                     List<String> data = mDataArrays[position];
                     String[] cache = new String[data.size()]; 
                     data.toArray(cache);
@@ -187,5 +194,6 @@ public class SingleSortBar extends LinearLayout {
     public void select(int column, int selectedIndex){
         Button item = mSortButtons.get(column);
         item.setText(mDataArrays[column].get(selectedIndex));
+        mSelectedIndexs[column] = selectedIndex;
     }
 }

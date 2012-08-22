@@ -84,7 +84,7 @@ public class IntentUtil {
 	public static Intent getCropImageIntent(){
 		Intent intent = new Intent(Intent.ACTION_GET_CONTENT,null);
 		intent.setType("image/*");
-		intent.putExtra("crop", true);
+		intent.putExtra("crop", "true");
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		intent.putExtra("return-data", true);

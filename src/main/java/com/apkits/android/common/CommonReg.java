@@ -32,19 +32,19 @@ public class CommonReg {
      * @param number
      * @return
      */
-    public static boolean runReg(String reg,String str){
+    public static boolean matcherRegex(String reg,String str){
         Pattern pattern = Pattern.compile(reg);
         return pattern.matcher(str).matches();
     }
     
     /**
-     * <b>description :</b>     匹配字母或数字或下划线或汉字
+     * <b>description :</b>     匹配有效字符（中英文数字及常用标点）
      * </br><b>time :</b>       2012-8-16 下午10:03:26
      * @param number
      * @return
      */
     public static boolean matchCommonChar(String str){
-        return runReg("^\\w+$",str);
+        return matcherRegex("^[\\w \\p{P}]+$",str);
     }
     
     /**
@@ -54,7 +54,7 @@ public class CommonReg {
      * @return
      */
     public static boolean matchCNMobileNumber(String number){
-        return runReg("^((13[0-9])|(15[^4,//D])|(18[0,5-9]))\\d{8}$",number);
+        return matcherRegex("^((13[0-9])|(15[^4,//D])|(18[0,5-9]))\\d{8}$",number);
     }
     
     /**
@@ -64,6 +64,26 @@ public class CommonReg {
      * @return
      */
     public static boolean matchEmptyLine(String line){
-        return null == line ? true : runReg("^[\\s\\n]*$", line);
+        return null == line ? true : matcherRegex("^[\\s\\n]*$", line);
+    }
+    
+    /**
+     * <b>description :</b>     清除标点符号
+     * </br><b>time :</b>       2012-8-22 下午16:53:26
+     * @param number
+     * @return
+     */
+    public static String cleanPunctuation(String content){
+        return content.replaceAll("[\\p{P}‘’“”]", content);
+    }
+    
+    /**
+     * <b>description :</b>     判断是否为有效的人物名字，可带·间隔符号。
+     * </br><b>time :</b>       2012-8-22 下午18:03:26
+     * @param number
+     * @return
+     */
+    public static boolean matchPersionName(String name){
+        return null == name ? false : matcherRegex("^[\\w .\u00B7-]+$", name);
     }
 }
