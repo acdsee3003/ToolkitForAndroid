@@ -15,6 +15,8 @@
  */
 package com.apkits.android.database;
 
+import com.apkits.android.common.CommonReg;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -351,24 +353,11 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	private String[] formateToLine(String sqlGroup){
 		StringBuffer sqlTemp = new StringBuffer();
 		for(String line : sqlGroup.split(System.getProperty("line.separator"))){
-			if( !isEmptyLine(line) && !line.startsWith("--") ){
+			if( !CommonReg.matchEmptyLine(line) && !line.startsWith("--") ){
 				sqlTemp.append(line);
 			}
 		}
 		return sqlTemp.toString().split(";");
-	}
-	
-	/**
-	* description :判断是否为空行
-	* time : 2012-8-15 下午10:48:56
-	* @Param sqlGroup
-	* @return
-	*/
-	private boolean isEmptyLine(String str) {
-		if (null != str) {
-			str = str.replace(" ", "").replace("\t", "").replace(System.getProperty("line.separator"), "");
-		}
-		return (null == str || str.length() == 0 || "".equals(str));
 	}
 	
 	/**
