@@ -167,7 +167,8 @@ public class BaseActivity {
 	 * @param targetActivity	目标Activity的Class
 	 * @param params			跳转所带的参数
 	 */
-	public static void switchTo(Activity activity,Class<? extends Activity> targetActivity,Map<String,Object> params){
+	public static void switchTo(Activity activity,Class<? extends Activity> targetActivity,
+	        Map<String,Object> params){
 			Intent intent = new Intent(activity,targetActivity);
 			if( null != params ){
 				for(Map.Entry<String, Object> entry : params.entrySet()){

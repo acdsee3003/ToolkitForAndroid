@@ -15,6 +15,8 @@
  */
 package com.apkits.android.system;
 
+import java.util.Map;
+
 import android.content.Intent;
 
 /**
@@ -30,7 +32,6 @@ import android.content.Intent;
 public class IntentUtil {
 
 	/**
-	 * </br><b>title : </b>		将值设置到Intent里
 	 * </br><b>description :</b>将值设置到Intent里
 	 * </br><b>time :</b>		2012-7-8 下午3:31:17
 	 * @param intent			Inent对象
@@ -38,6 +39,7 @@ public class IntentUtil {
 	 * @param val				Value
 	 */
 	public static void setValueToIntent(Intent intent, String key, Object val) {
+	    if( null == key || null == val) return;
 		if (val instanceof Boolean)
 			intent.putExtra(key, (Boolean) val);
 		else if (val instanceof Boolean[])
@@ -65,7 +67,20 @@ public class IntentUtil {
 		else{
 			throw new IllegalArgumentException("Not support data Type!");
 		}
-			
+	}
+	
+	/**
+     * </br><b>description :</b>将值设置到Intent里
+     * </br><b>time :</b>       2012-8-26 下午14:31:17
+     * @param intent           Inent对象
+     * @param params           参数Map 
+     */
+	public static void setMapValToIntent(Intent intent,Map<String,Object> params){
+	    if( null != params ){
+            for(Map.Entry<String, Object> entry : params.entrySet()){
+                IntentUtil.setValueToIntent(intent, entry.getKey(), entry.getValue());
+            }
+        }
 	}
 	
 	/**
