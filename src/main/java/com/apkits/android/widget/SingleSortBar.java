@@ -21,6 +21,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -135,6 +136,8 @@ public class SingleSortBar extends LinearLayout {
         for(int i=0;i<columnCount;i++){
             final Button item = new Button(getContext());
             LayoutParams param = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
+            item.setEllipsize(TruncateAt.END);
+            item.setSingleLine();
             mSortButtons.add(item);
             addView(item,param);
             final int position = i;

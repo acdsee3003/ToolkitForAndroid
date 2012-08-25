@@ -19,6 +19,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -29,10 +36,10 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.apkits.android.common.CommonReg;
 import com.apkits.android.common.StreamUtil;
 import com.apkits.android.encrypt.HashEncrypt;
 import com.apkits.android.encrypt.HashEncrypt.CryptType;
-import com.apkits.android.network.Http;
 import com.apkits.android.resource.BitmapUtil;
 
 /**
@@ -146,6 +153,10 @@ public class WebImageView extends ImageView {
 	 * @param url
 	 */
 	public void fetchFromUrl(final String url){
+	    if(!CommonReg.matcherRegex("[\\w\\p{P}]*\\.[jpngifJPNGIF]{3,4}", url)){
+	        Toast.makeText(mContext, String.format("无效的图片地址：%s", url), Toast.LENGTH_SHORT).show();
+	        return;
+	    }
 	    final String tempFile = HashEncrypt.encode(CryptType.SHA1, url);
 		//是否在缓存
 		if(mContext.getFileStreamPath(tempFile).exists()){
@@ -161,7 +172,12 @@ public class WebImageView extends ImageView {
 				    Message msg = new Message();
 				    msg.what = State.Success;
 					try {
-						InputStream is = Http.get(url);
+					    HttpGet httpRequest = new HttpGet(url);
+					    HttpClient httpclient = new DefaultHttpClient();
+					    HttpResponse response = (HttpResponse) httpclient.execute(httpRequest);
+					    HttpEntity entity = response.getEntity();
+					    BufferedHttpEntity bufferedHttpEntity = new BufferedHttpEntity(entity);
+					    InputStream is = bufferedHttpEntity.getContent();
 						FileOutputStream os = mContext.openFileOutput(tempFile, Context.MODE_PRIVATE);
 						byte[] cache = new byte[ 1 * 1024 ]; 
 						for(int len = 0;(len = is.read(cache)) != -1;){
