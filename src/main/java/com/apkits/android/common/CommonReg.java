@@ -54,7 +54,7 @@ public class CommonReg {
      * @return
      */
     public static boolean matchCNMobileNumber(String number){
-        return matcherRegex("^((13[0-9])|(15[^4,//D])|(18[0,5-9]))\\d{8}$",number);
+        return matcherRegex("^((13[0-9])|(147)|(15[^4,//D])|(18[02,5-9]))\\d{8}$",number);
     }
     
     /**
