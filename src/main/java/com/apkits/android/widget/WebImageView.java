@@ -67,6 +67,9 @@ public class WebImageView extends ImageView {
 	/** 重置图片大小  */
 	private int[] mResize = {-1,-1};
 	
+	/** 默认图片  */
+	private int mDefaultImageRes = 0;
+	
 	public interface State { 
 	    int Success = 202;
 	    int Error = 404;
@@ -129,6 +132,15 @@ public class WebImageView extends ImageView {
 	}
 	
 	/**
+     * </br><b>description : </b>   设置默认图片
+     * @param context
+     * @param attrs
+     */
+	public void setDefaultImage(int drawableResId){
+	    mDefaultImageRes = drawableResId;
+	}
+	
+	/**
 	 * </br><b>description : </b>	在XML中构建
 	 * @param context
 	 * @param attrs
@@ -154,7 +166,8 @@ public class WebImageView extends ImageView {
 	 */
 	public void fetchFromUrl(final String url){
 	    if(!CommonReg.matcherRegex("[\\w\\p{P}]*\\.[jpngifJPNGIF]{3,4}", url)){
-	        Toast.makeText(mContext, String.format("无效的图片地址：%s", url), Toast.LENGTH_SHORT).show();
+	        if(mDefaultImageRes != 0) setImageResource(mDefaultImageRes);
+            WebImageView.this.invalidate();
 	        return;
 	    }
 	    final String tempFile = HashEncrypt.encode(CryptType.SHA1, url);
