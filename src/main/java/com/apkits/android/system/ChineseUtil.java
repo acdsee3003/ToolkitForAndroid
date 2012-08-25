@@ -64,7 +64,6 @@ public class ChineseUtil {
 	}
 
 	/**
-	 * </br><b>title : </b>		转换成字符
 	 * </br><b>description :</b>转换成字符
 	 * </br><b>time :</b>		2012-7-17 下午10:28:57
 	 * @param bytes

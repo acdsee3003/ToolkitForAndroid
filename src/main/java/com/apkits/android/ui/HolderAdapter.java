@@ -47,19 +47,13 @@ public class HolderAdapter<E> extends BaseAdapter {
 		public View view;
 	}
 	
-	/**
-	 * 数据缓存
-	 */
+	/** 数据缓存 */
 	private List<E> mDataCache;
 	
-	/**
-	 * 用于从XML文件中创建Layout
-	 */
+	/** 用于从XML文件中创建Layout */
 	private LayoutInflater mInflater;
 	
-	/**
-	 * View创建器
-	 */
+	/** View创建器 */
 	private ViewCreator<E> mCreator;
 	
 	/**
@@ -104,7 +98,6 @@ public class HolderAdapter<E> extends BaseAdapter {
 	}
 
 	/**
-	 * </br><b>title : </b>		添加数据元素
 	 * </br><b>description :</b>添加数据元素，向数据缓存中添加单个元素。
 	 * </br><b>time :</b>		2012-7-17 下午10:19:51
 	 * @param item
@@ -115,30 +108,22 @@ public class HolderAdapter<E> extends BaseAdapter {
 	    notifyDataSetChanged();
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getCount()
-	 */
+	@Override
 	public int getCount() {
 		return null == mDataCache ? 0 : mDataCache.size();
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getItem(int)
-	 */
+	@Override
 	public E getItem(int position) {
 		return null == mDataCache ? null : mDataCache.get(position);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getItemId(int)
-	 */
+	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
-	 */
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// Holder View模式实现
 		if (convertView == null) {

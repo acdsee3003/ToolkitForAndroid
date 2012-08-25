@@ -28,7 +28,7 @@ import android.net.Uri;
 /**
  * <ul>
  * <li><b>name : </b> ApkUtil</li>
- * <li><b>description :</b> TODO</li>
+ * <li><b>description :</b> APK工具</li>
  * <li><b>author : </b> 桥下一粒砂</li>
  * <li><b>e-mail : </b> chenyoca@gmail.com</li>
  * <li><b>weibo : </b> @桥下一粒砂</li>

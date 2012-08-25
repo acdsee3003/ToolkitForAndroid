@@ -27,6 +27,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.apkits.android.common.StreamUtil;
 import com.apkits.android.encrypt.HashEncrypt;
@@ -47,48 +48,47 @@ import com.apkits.android.resource.BitmapUtil;
  */
 public class WebImageView extends ImageView {
 
-	/**
-	 * 图片的最小宽高
-	 */
+	/** 图片的最小宽高 */
 	public static final int MIN_WIDTH_HEIGHT = 10;
 	
-	/**
-	 * 调试信息输出
-	 */
+	/** 调试信息输出 */
 	private static final String TAG = "WebImageView";
 	
-	/**
-	 * Andorid环境上下文
-	 */
+	/** Andorid环境上下文 */
 	private Context mContext;
 	
-	/**
-	 * 重置图片大小
-	 */
+	/** 重置图片大小  */
 	private int[] mResize = {-1,-1};
 	
-	/**
-	 * 下载更新回调
-	 */
+	public interface State { 
+	    int Success = 202;
+	    int Error = 404;
+	}
+	
+	/** 下载更新回调 */
 	private Handler mDownloadCallback = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
-			Bitmap img = null;
+		    if( msg.what == State.Error){
+		        Toast.makeText(mContext, msg.obj.toString(), Toast.LENGTH_SHORT).show();
+		        return;
+		    }
+			Bitmap image = null;
 			try {
-				img = StreamUtil.convertBitmap(mContext.openFileInput(msg.obj.toString()));
+				image = StreamUtil.convertBitmap(mContext.openFileInput(msg.obj.toString()));
 			} catch (IOException e) {
 				Log.e(TAG,"Cannot convert file to image !");
 				e.printStackTrace();
 				return;
 			} 
-			img = resize(img);
-			if( null != img ){
+			image = resize(image);
+			if( null != image ){
+			    WebImageView.this.invalidate();
 			    AlphaAnimation ani = new AlphaAnimation(0.3f, 1.0f);
 			    ani.setDuration(500);
-				WebImageView.this.setImageBitmap(img);
+				WebImageView.this.setImageBitmap(image);
 				WebImageView.this.setAnimation(ani);
 			}
-			WebImageView.this.invalidate();
 		}
 	};
 	
@@ -150,6 +150,7 @@ public class WebImageView extends ImageView {
 		//是否在缓存
 		if(mContext.getFileStreamPath(tempFile).exists()){
 			Message msg = new Message();
+			msg.what = State.Success;
 			msg.obj = tempFile;
 			mDownloadCallback.sendMessage(msg);
 		}else{
@@ -157,6 +158,8 @@ public class WebImageView extends ImageView {
 			new Thread(new Runnable(){
 				@Override
 				public void run() {
+				    Message msg = new Message();
+				    msg.what = State.Success;
 					try {
 						InputStream is = Http.get(url);
 						FileOutputStream os = mContext.openFileOutput(tempFile, Context.MODE_PRIVATE);
@@ -166,14 +169,14 @@ public class WebImageView extends ImageView {
 						}
 						os.close();
 						is.close();
+						msg.obj = tempFile;
 					} catch (IOException e) {
-						Log.e(TAG,String.format("Cannot fetch image from url (%) !", url));
+						msg.obj = e.getMessage();
+						msg.what = State.Error;
 						e.printStackTrace();
-						return;
+					} finally{
+                        mDownloadCallback.sendMessage(msg);
 					}
-					Message msg = new Message();
-					msg.obj = tempFile;
-					mDownloadCallback.sendMessage(msg);
 				}
 			}).start();
 		}

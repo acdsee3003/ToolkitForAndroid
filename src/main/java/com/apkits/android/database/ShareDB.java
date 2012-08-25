@@ -20,16 +20,18 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 /**
- * </br><b>name : </b>		ShareHelper
- * </br><b>description :</b>ShareDatabase辅助工具类
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-8 下午4:50:50
- *
+ * <ul>
+ * <li><b>name : </b>		ShareDB		</li>
+ * <li><b>description :</b>	ShareDatabase辅助工具类				</li>
+ * <li><b>author : </b>		桥下一粒砂			</li>
+ * <li><b>e-mail : </b>		chenyoca@gmail.com	</li>
+ * <li><b>weibo : </b>		@桥下一粒砂			</li>
+ * <li><b>date : </b>		2012-7-8 下午4:50:50		</li>
+ * </ul>
  */
 public class ShareDB {
 
+	/** SharedPreferences实例 **/
 	private SharedPreferences mShareDB;
 	
 	/**
@@ -42,13 +44,12 @@ public class ShareDB {
 	}
 
 	/**
-	 * </br><b>title : </b>		将值保存到ShareDatabase中
-	 * </br><b>description :</b>将值保存到ShareDatabase中。只支持基本类型
+	 * <b>description :</b>		将值保存到ShareDatabase中。只支持基本类型。
 	 * </br><b>time :</b>		2012-7-8 下午4:52:04
 	 * @param key				KEY
 	 * @param val				VALUE
 	 */
-	public void put(String key, Object val) {
+	public void save(String key, Object val) {
 		Editor editor = mShareDB.edit();
 		if(val instanceof String){
 			editor.putString(key, val.toString());
@@ -60,46 +61,113 @@ public class ShareDB {
 			editor.putLong(key, (Long)val);
 		}else if(val instanceof Boolean){
 			editor.putBoolean(key, (Boolean)val);
+		}else{
+			throw new IllegalArgumentException("SharedPreferences do not support this Type!");
 		}
 		editor.commit();
 	}
 	
+	/**
+	 * <b>description :</b>		取出Int类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:06
+	 * @param key				KEY
+	 * @return					如果数据不存在，返回0。
+	 */
 	public int getInt(String key){
-		return mShareDB.getInt(key, 0); 
+		return getInt(key, 0); 
 	}
 	
+	/**
+	 * <b>description :</b>		取出Int类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:11
+	 * @param key				KEY
+	 * @param deftVal			当数据不存在时返回的默认值
+	 * @return					如果数据不存在，返回设定的默认值。
+	 */
 	public int getInt(String key,int deftVal){
 		return mShareDB.getInt(key, deftVal);
 	}
 	
+	/**
+	 * <b>description :</b>		取出Boolean类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:15
+	 * @param key				KEY
+	 * @return					如果数据不存在，返回false。
+	 */
 	public boolean getBoolean(String key){
-		return mShareDB.getBoolean(key, false);
+		return getBoolean(key, false);
 	}
 
+	/**
+	 * <b>description :</b>		取出Boolean类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:19
+	 * @param key				KEY
+	 * @param defValue			默认值
+	 * @return					如果数据不存在，返回设定的默认值。
+	 */
 	public boolean getBoolean(String key,boolean defValue){
 		return mShareDB.getBoolean(key, defValue);
 	}
 	
+	/**
+	 * <b>description :</b>		取出String类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:23
+	 * @param key				KEY
+	 * @return					如果数据不存在，返回null。
+	 */
 	public String getString(String key){
-		return mShareDB.getString(key, null);
+		return getString(key, null);
 	}
 	
+	/**
+	 * <b>description :</b>		取出String类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:27
+	 * @param key				KEY
+	 * @param defValue			默认值
+	 * @return					如果数据不存在，返回设定的默认值。
+	 */
 	public String getString(String key,String defValue){
 		return mShareDB.getString(key, defValue);
 	}
 	
+	/**
+	 * <b>description :</b>		取出Long类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:31
+	 * @param key				KEY
+	 * @return					如果数据不存在，返回设定的0。
+	 */
 	public long getLong(String key){
-		return mShareDB.getLong(key, 0L);
+		return getLong(key, 0L);
 	}
 	
+	/**
+	 * <b>description :</b>		取出Long类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:34
+	 * @param key				KEY
+	 * @param defValue			默认值
+	 * @return					如果数据不存在，返回设定的值。
+	 */
 	public long getLong(String key,Long defValue){
 		return mShareDB.getLong(key, defValue);
 	}
 	
+	/**
+	 * <b>description :</b>		取出Float类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:38
+	 * @param key				KEY
+	 * @return					如果数据不存在，返回0
+	 */
 	public float getFloat(String key){
-		return mShareDB.getFloat(key, 0.0f);
+		return getFloat(key, 0.0f);
 	}
 	
+	/**
+	 * <b>description :</b>		取出Float类型数据
+	 * </br><b>time :</b>		2012-8-22 下午10:47:42
+	 * @param key				KEY
+	 * @param defValue			默认值
+	 * @return					如果数据不存在，返回设定的值
+	 */
 	public float getFloat(String key,Float defValue){
 		return mShareDB.getFloat(key, defValue);
 	}
