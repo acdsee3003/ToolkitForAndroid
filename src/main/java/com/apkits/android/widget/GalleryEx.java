@@ -19,6 +19,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Gallery;
@@ -85,14 +86,17 @@ public class GalleryEx extends Gallery {
 				mTouchEndX = offsetX - mTouchBeganX;
 				if (mSelectedIndex == 0) {
 					if (mTouchEndX > 0 && mTouchEndX < getWidth() && offsetX > mTouchBeganX - mxwidth) {
-						startAnimation(genAnimation());
+						getSelectedView().startAnimation(genAnimation());
 					} else {
 						mTouchEndX = 0;
 						mSelectedIndex = getSelectedItemPosition();
 					}
 				} else {
 					if (mTouchEndX < 0 && mTouchEndX > -getWidth() * 2 && offsetX < mTouchBeganX + mxwidth) {
-						startAnimation(genAnimation());
+						View selectedView = getSelectedView(); 
+						if( selectedView != null){
+							selectedView.startAnimation(genAnimation());
+						}
 					} else {
 						mTouchEndX = 0;
 						mSelectedIndex = getSelectedItemPosition();
@@ -107,7 +111,10 @@ public class GalleryEx extends Gallery {
 						Animation translate = new TranslateAnimation(mTouchEndX, 0,0, 0);
 						translate.setDuration(250);
 						translate.setFillAfter(true);
-						startAnimation(translate);
+						View selectedView = getSelectedView(); 
+						if( selectedView != null){
+							selectedView.startAnimation(translate);
+						}
 					}
 				}
 			}

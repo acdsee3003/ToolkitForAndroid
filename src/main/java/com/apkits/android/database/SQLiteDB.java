@@ -46,8 +46,8 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	private boolean mPrintSQL = false;
 	
 	/**
-	 * </br><b>description : </b>	数据库在没有调用getWritableDatabase() 或者 getReadableDatabase()
-	 * 其中的一个方法前，是不会创建或者打开的。
+	 * <b>description : </b>	数据库在没有调用getWritableDatabase() 或者 getReadableDatabase()
+	 * 						其中的一个方法前，是不会创建或者打开的。
 	 * @param context 				Android应用环境变量引用,用于创建或者打开数据库
 	 * @param dbName 				数据库名称，即数据库文件名。如果为null则创建一个内存数据库。
 	 * @param factory 				用于创建Cursor游标对象组，默认为null。
@@ -55,8 +55,7 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	 * 			  			onUpgrade(SQLiteDatabase, int, int)升级数据库。否则调用 onDowngrade(SQLiteDatabase, int, int)
 	 * 			  			降级数据库。
 	 */
-	public SQLiteDB(Context context, String dbName, CursorFactory factory,
-			int version) {
+	public SQLiteDB(Context context, String dbName, CursorFactory factory,int version) {
 		super(context, dbName, factory, version);
 	}
 	
@@ -84,7 +83,7 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	}
 	
 	/**
-	 * <b>description :</b>打印SQL语句
+	 * <b>description :</b>		打印SQL语句
 	 * </br><b>time :</b>		2012-7-28 下午11:18:14
 	 */
 	public void enablePrintSQL(){
@@ -92,8 +91,8 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	}
 	
 	/**
-	 * <b>description :</b>如果数据库没有被创建，调用此方法将会触发OnCreate()方法创建数据库。
-	 * 需要 onCreateSQLFile() 返回创建数据库时执行的SQL文件。
+	 * <b>description :</b>		如果数据库没有被创建，调用此方法将会触发OnCreate()方法创建数据库。
+	 * 需要 onCreateSQLFile() 	返回创建数据库时执行的SQL文件。
 	 * </br><b>time :</b>		2012-7-8 下午2:30:13
 	 */
 	final public void verify(){
