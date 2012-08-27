@@ -119,4 +119,13 @@ public class ListViewEx extends ListView {
 	    return mCurrentPage;
 	}
 	
+	/**
+	 * @Title: setPageCount
+	 * @Description: 设置页码
+	 * @param pageNum
+	 */
+	public void setPageCount(int pageNum){
+	    mCurrentPage = pageNum;
+	}
+	
 }
