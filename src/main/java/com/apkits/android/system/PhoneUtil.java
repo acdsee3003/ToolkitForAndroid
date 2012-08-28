@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
 /**
  * </br><b>name : </b>		PhoneCall
@@ -41,7 +42,12 @@ public class PhoneUtil {
 	 */
 	public static void call(Activity activity, String phoneNumber){
 		Intent dialIntent = new Intent(Intent.ACTION_CALL,Uri.parse(String.format("tel:%s", phoneNumber)));
-		activity.startActivity(dialIntent);
+		try{
+		    activity.startActivity(dialIntent);
+	    }catch(Exception e){
+	        Toast.makeText(activity, 
+	                "无法呼叫！可能本应用呼叫功能已经系统或安全软件禁止！", Toast.LENGTH_SHORT).show();
+	    }
 	}
 	 
 	/**

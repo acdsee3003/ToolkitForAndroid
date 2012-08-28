@@ -15,7 +15,12 @@
  */
 package com.apkits.android.network;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -64,5 +69,29 @@ public class Network {
 	 */
 	public static void changeWIFIStatus(Context c, boolean status) {
 		((WifiManager) c.getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(status);
+	}
+	
+	/**
+     * </br><b>description :</b>提示打开网络设置
+     * </br><b>time :</b>       2012-7-18 下午7:46:13
+     * @param c
+     * @param status
+     */
+	public static void showNetworkSetting(final Activity activity){
+        AlertDialog.Builder builder = new Builder(activity);
+        builder.setTitle("网络设置提示")
+            .setMessage("网络连接不可用,是否进行设置?")
+            .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        activity.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+                    }
+             }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+             })
+             .show();
 	}
 }
