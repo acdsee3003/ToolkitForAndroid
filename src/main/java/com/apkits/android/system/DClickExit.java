@@ -8,9 +8,14 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 /**
- * 按两次返回退出提示工具类
- * @author chenyoca [桥下一粒砂] (chenyoca@163.com)
- * @date 2012-1-13
+ * <ul>
+ * <li><b>name : </b>       ChineseUtil</li>
+ * <li><b>description :</b> 按两次返回退出提示工具类</li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-1-13 下午10:26:03</li>
+ * </ul>
  */
 public class DClickExit {
 	private static final String DEFAULT_EXIT_TIP = "再按一次返回键退出应用！";

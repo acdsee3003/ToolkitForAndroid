@@ -24,7 +24,7 @@ import android.widget.ListAdapter;
 /**
  * <ul>
  * <li><b>name : </b>		HolderViewFiller		</li>
- * <li><b>description :</b>	TODO				</li>
+ * <li><b>description :</b>	可继承自AbsListView进行子项填充的工具类。主要用于ListView，GridView等填充。</li>
  * <li><b>author : </b>		桥下一粒砂			</li>
  * <li><b>e-mail : </b>		chenyoca@gmail.com	</li>
  * <li><b>weibo : </b>		@桥下一粒砂			</li>

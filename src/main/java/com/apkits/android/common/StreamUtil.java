@@ -23,14 +23,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 
 /**
- * </br><b>name : </b>		StreamConverter
- * </br><b>description :</b>对InputStream进行各类型数据的转换。
- * 					转换类型包括Drawabel,Bitmap,String,byte[]等。
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-8
- *
+ * <ul>
+ * <li><b>name : </b>       CommonReg       </li>
+ * <li><b>description :</b> 对InputStream进行各类型数据的转换。转换类型包括Drawabel,Bitmap,String,byte[]等。              </li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-8        </li>
+ * </ul>
  */
 public class StreamUtil {
 	

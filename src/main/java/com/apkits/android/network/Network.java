@@ -26,13 +26,14 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
 /**
- * </br><b>name : </b>		NetworkUtil
- * </br><b>description :</b>网络检测
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-18 下午7:43:52
- *
+ * <ul>
+ * <li><b>name : </b>       NetworkUtil</li>
+ * <li><b>description :</b> 网络检测</li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-18 下午7:43:52</li>
+ * </ul>
  */
 public class Network {
 

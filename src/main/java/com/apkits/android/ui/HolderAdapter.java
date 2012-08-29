@@ -24,13 +24,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 /**
- * </br><b>name : </b>		HolderAdapter
- * </br><b>description :</b>实现HolderView模式的Adapter。
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-10 下午10:56:11
- *
+ * <ul>
+ * <li><b>name : </b>       HolderAdapter</li>
+ * <li><b>description :</b> 实现HolderView模式的Adapter。</li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-10 下午10:56:11</li>
+ * </ul>
  */
 public class HolderAdapter<E> extends BaseAdapter {
 

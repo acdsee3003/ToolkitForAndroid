@@ -6,16 +6,15 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Handler;
 
-
-
 /**
- * </br><b>name : </b>		ThreadTask
- * </br><b>description :</b>启动一个线程任务，并显示一个进度窗口。进度窗口不可关闭。使用此工具，可以避免主线线程阻塞出现ANR情况。
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-18 下午7:48:39
- *
+ * <ul>
+ * <li><b>name : </b>       ThreadTask      </li>
+ * <li><b>description :</b> 启动一个线程任务，并显示一个进度窗口。进度窗口不可关闭。使用此工具，可以避免主线线程阻塞出现ANR情况。</li>
+ * <li></b>author : </b>    桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-18 下午7:48:39</li>
+ * </ul>
  */
 public class ThreadTask {
 

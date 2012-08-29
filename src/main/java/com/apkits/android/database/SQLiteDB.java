@@ -26,13 +26,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * </br><b>name : </b>		SQLiteHelper
- * </br><b>description :</b>创建数据库辅助工具，用于创建，打开和管理一个数据库。
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-8 下午2:33:56
- *
+ * <ul>
+ * <li><b>name : </b>       SQLiteDB     </li>
+ * <li><b>description :</b> 创建数据库辅助工具，用于创建，打开和管理一个数据库。</li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-8 下午2:33:56</li>
+ * </ul>
  */
 public class SQLiteDB extends SQLiteOpenHelper  {
 

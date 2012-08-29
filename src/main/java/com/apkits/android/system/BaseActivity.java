@@ -26,13 +26,14 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 /**
- * </br><b>name : </b>		ActivityUtil
- * </br><b>description :</b>Activity特性辅助工具
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-8
- *
+ * <ul>
+ * <li><b>name : </b>       BaseActivity</li>
+ * <li><b>description :</b> Activity特性辅助工具</li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-8 下午5:29:41</li>
+ * </ul>
  */
 public class BaseActivity {
 

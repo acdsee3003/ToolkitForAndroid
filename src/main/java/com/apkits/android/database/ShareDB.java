@@ -22,7 +22,7 @@ import android.content.SharedPreferences.Editor;
 /**
  * <ul>
  * <li><b>name : </b>		ShareDB		</li>
- * <li><b>description :</b>	ShareDatabase辅助工具类				</li>
+ * <li><b>description :</b>	ShareDatabase辅助工具类</li>
  * <li><b>author : </b>		桥下一粒砂			</li>
  * <li><b>e-mail : </b>		chenyoca@gmail.com	</li>
  * <li><b>weibo : </b>		@桥下一粒砂			</li>

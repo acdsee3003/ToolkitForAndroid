@@ -23,13 +23,14 @@ import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 /**
- * </br><b>name : </b>		PhoneCall
- * </br><b>description :</b>TODO
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-21 上午8:41:34
- *
+ * <ul>
+ * <li><b>name : </b>       PhoneUtil      </li>
+ * <li><b>description :</b> 电话类</li>
+ * <li></b>author : </b>    桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-21 上午8:41:34</li>
+ * </ul>
  */
 public class PhoneUtil {
 

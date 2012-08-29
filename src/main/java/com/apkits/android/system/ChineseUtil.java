@@ -18,13 +18,14 @@ package com.apkits.android.system;
 import java.io.UnsupportedEncodingException;
 
 /**
- * </br><b>name : </b>	ChineseUtil </br>
- * <b>description :</b>	中文处理工具 </br>
- * @author : 			桥下一粒砂 </br>
- * <b>e-mail : </b> 	chenyoca@gmail.com </br>
- * <b>weibo : </b> 		@桥下一粒砂
- * </br><b>date : </b> 	2012-7-17 下午10:26:03
- * 
+ * <ul>
+ * <li><b>name : </b>       ChineseUtil</li>
+ * <li><b>description :</b> 中文处理工具</li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-17 下午10:26:03</li>
+ * </ul>
  */
 public class ChineseUtil {
 

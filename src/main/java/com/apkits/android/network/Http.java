@@ -24,13 +24,14 @@ import java.net.URL;
 import java.util.Map;
 
 /**
- * </br><b>name : </b>		Http
- * </br><b>description :</b>HTTP连接辅助
- * </br>@author : 			桥下一粒砂
- * </br><b>e-mail : </b>	chenyoca@gmail.com
- * </br><b>weibo : </b>		@桥下一粒砂
- * </br><b>date : </b>		2012-7-8 下午4:29:41
- *
+ * <ul>
+ * <li><b>name : </b>       Http</li>
+ * <li><b>description :</b> HTTP连接辅助</li>
+ * <li><b>author : </b>     桥下一粒砂           </li>
+ * <li><b>e-mail : </b>     chenyoca@gmail.com  </li>
+ * <li><b>weibo : </b>      @桥下一粒砂          </li>
+ * <li><b>date : </b>       2012-7-8 下午4:29:41</li>
+ * </ul>
  */
 public class Http {
 	
