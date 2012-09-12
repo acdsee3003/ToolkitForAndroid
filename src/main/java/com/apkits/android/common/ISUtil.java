@@ -32,7 +32,7 @@ import android.graphics.drawable.BitmapDrawable;
  * <li><b>date : </b>       2012-7-8        </li>
  * </ul>
  */
-public class StreamUtil {
+public class ISUtil {
 	
 	/**
 	 * <b>description :</b>	将InputStream流转换成BitmapDrawable。BitmapDrawable是Drawable的直接子类，可用于Drawable对象
@@ -40,7 +40,7 @@ public class StreamUtil {
 	 * @return 			BitmapDrawable对象
 	 * @throws 			IOException 
 	 */
-	public static BitmapDrawable converToBitmapDrawable(InputStream is) throws IOException{
+	public static BitmapDrawable toBitmapDrawable(InputStream is) throws IOException{
 		BitmapDrawable bitmapDrawable = new BitmapDrawable(is);
 		is.close();
 		return bitmapDrawable;
@@ -52,9 +52,9 @@ public class StreamUtil {
 	 * @return 					Bitmap对象
 	 * @throws IOException 
 	 */
-	public static Bitmap convertBitmap(InputStream is) throws IOException{
+	public static Bitmap toBitmap(InputStream is) throws IOException{
 	    if( null == is) return null;
-		return converToBitmapDrawable(is).getBitmap();
+		return toBitmapDrawable(is).getBitmap();
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class StreamUtil {
 	 * @return 				StringBuffer对象
 	 * @throws IOException 
 	 */
-	public static StringBuffer convertToStringBuffer(InputStream is) throws IOException{
+	public static StringBuffer toStringBuffer(InputStream is) throws IOException{
 	    if( null == is) return null;
 		StringBuffer buffer = new StringBuffer();
 		byte[] cache = new byte[ 1 * 1024 ];
@@ -80,9 +80,9 @@ public class StreamUtil {
 	 * @return 					String对象
 	 * @throws IOException 
 	 */
-	public static String converToString(InputStream is) throws IOException{
+	public static String toString(InputStream is) throws IOException{
 	    if( null == is) return null;
-		return convertToStringBuffer(is).toString();
+		return toStringBuffer(is).toString();
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class StreamUtil {
 	 * @return 				字节数组
 	 * @throws IOException 
 	 */
-	public static byte[] convertToByteArray(InputStream is) throws IOException{
+	public static byte[] toByteArray(InputStream is) throws IOException{
 	    if( null == is) return null;
 		byte[] cache = new byte[1 * 1024];
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();

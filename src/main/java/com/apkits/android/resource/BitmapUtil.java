@@ -78,6 +78,38 @@ public class BitmapUtil {
 	public static Bitmap extract(Bitmap source, int targetWidth, int targetHeight) {
 		return extractThumbnail(source, targetWidth, targetHeight, Option.NONE);
 	}
+	
+	/**
+	 * <b>description :</b>		裁剪图图片中间
+	 * </br><b>time :</b>		2012-9-4 下午6:30:29
+	 * @param source
+	 * @param targetWidth
+	 * @param targetHeight
+	 * @return
+	 */
+	public static Bitmap cropCenter(Bitmap source, int targetWidth, int targetHeight) {  
+	       int startWidth = (source.getWidth() - targetWidth)/2;  
+	       int startHeight = ((source.getHeight() - targetHeight) / 2);  
+	       Rect src = new Rect(startWidth, startHeight, startWidth + targetWidth, startHeight + targetHeight);  
+	       return dividePart(source, src);  
+	}  
+	  
+	/** 
+	* 剪切图片 
+	* @param bmp 被剪切的图片 
+	* @param src 剪切的位置 
+	* @return 剪切后的图片 
+	*/  
+	private static Bitmap dividePart(Bitmap bmp, Rect src)  
+	{  
+	    int width = src.width();  
+	    int height = src.height();  
+	    Rect des = new Rect(0, 0, width, height);  
+	    Bitmap croppedImage = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);  
+	    Canvas canvas = new Canvas(croppedImage);  
+	    canvas.drawBitmap(bmp, src, des, null);  
+	    return croppedImage;  
+	}  
 
 	/**
 	 * <b>description :</b>		按比例缩放

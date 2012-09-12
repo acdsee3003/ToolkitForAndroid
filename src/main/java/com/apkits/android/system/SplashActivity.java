@@ -183,8 +183,8 @@ public abstract class SplashActivity extends Activity{
 				mSplashStage.startAnimation(animation);
 			}else{
 				shouldSkipToNext();
-				mBaseInfo.activity.startActivity(new Intent(mBaseInfo.activity,nextActivity()));
-				mBaseInfo.activity.finish();
+				mBaseInfo.self.startActivity(new Intent(mBaseInfo.self,nextActivity()));
+				mBaseInfo.self.finish();
 			}
 			super.handleMessage(msg);
 		}
@@ -234,8 +234,8 @@ public abstract class SplashActivity extends Activity{
 	final protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mBaseInfo = new BaseActivity(this);
-		BaseActivity.hideTitleBar(mBaseInfo.activity);
-		BaseActivity.setFullScreen(mBaseInfo.activity, true);
+		BaseActivity.hideTitleBar(mBaseInfo.self);
+		BaseActivity.setFullScreen(mBaseInfo.self, true);
 		setContentView(createSplashLayout());
 		addResource(mSplashParams);
 		onSplash();

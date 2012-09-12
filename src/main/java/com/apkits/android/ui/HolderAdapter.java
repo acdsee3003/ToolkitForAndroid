@@ -97,6 +97,26 @@ public class HolderAdapter<E> extends BaseAdapter {
 	    mDataCache.addAll(set);
 	    notifyDataSetChanged();
 	}
+	
+	/**
+	 * <b>description :</b>		交换两个元素的位置
+	 * </br><b>time :</b>		2012-9-4 下午4:46:33
+	 * @param src
+	 * @param target
+	 */
+	public void exchange(int src,int target){
+		if (src > target) {
+			int temp = target;
+			target = src;
+			target = temp;
+		}
+		E endObject = getItem(target);
+		E startObject = getItem(src);
+		mDataCache.set(src, endObject);
+		mDataCache.set(target, startObject);
+		notifyDataSetChanged();
+		
+	}
 
 	/**
 	 * </br><b>description :</b>添加数据元素，向数据缓存中添加单个元素。

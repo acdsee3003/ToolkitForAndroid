@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 /**
  * <ul>
- * <li><b>name : </b>		CommonReg		</li>
+ * <li><b>name : </b>		CommonRegex		</li>
  * <li><b>description :</b>	常正则表达式				</li>
  * <li><b>author : </b>		桥下一粒砂			</li>
  * <li><b>e-mail : </b>		chenyoca@gmail.com	</li>
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  * <li><b>date : </b>		2012-8-22 下午10:35:21		</li>
  * </ul>
  */
-public class CommonReg {
+public class CommonRegex {
 
 	/** 常字符，包含标点*/
 	public static final String COMMON_CHAR = "^[\\w \\p{P}]+$";

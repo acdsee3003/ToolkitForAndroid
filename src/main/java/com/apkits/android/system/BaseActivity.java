@@ -15,7 +15,9 @@
  */
 package com.apkits.android.system;
 
+import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Stack;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,7 +40,7 @@ import android.widget.Toast;
 public class BaseActivity {
 
 	/** Activity引用  */
-	public Activity activity;
+	public Activity self;
 	
 	/** Context引用 */
 	public Context context;
@@ -46,14 +48,17 @@ public class BaseActivity {
 	/**  双击退出模块 */
 	private DClickExit mDClickExit;
 	
+	/** Activity栈 **/
+	private static Stack<Activity> ActivityStack = new Stack<Activity>();
+	
 	/**
 	 * <b>description :</b>		TODO
 	 * </br><b>time :</b>		2012-8-22 下午11:01:55
-	 * @param activity
+	 * @param self
 	 */
 	public BaseActivity(Activity act){
-		activity = act;
-		context = activity;
+		self = act;
+		context = self;
 	}
 	
 	/**
@@ -61,7 +66,7 @@ public class BaseActivity {
 	 * </br><b>time :</b>		2012-7-18 下午9:24:41
 	 */
 	public void enabledDClickExit(){
-		mDClickExit = new DClickExit(activity);
+		mDClickExit = new DClickExit(self);
 	}
 
 	/**
@@ -79,11 +84,46 @@ public class BaseActivity {
 	}
 	
 	/**
+	 * <b>description :</b>		将Activity压力栈中
+	 * </br><b>time :</b>		2012-9-12 下午3:59:13
+	 * @param activity
+	 */
+	public static void pushActivity(Activity activity){
+		ActivityStack.add(activity);
+	}
+	
+	/**
+	 * <b>description :</b>		将顶端的Activity弹出栈顶
+	 * </br><b>time :</b>		2012-9-12 下午3:59:55
+	 */
+	public static Activity popActivity(){
+		return ActivityStack.lastElement();
+	}
+	
+	/**
+	 * <b>description :</b>		Activity栈回退到某个Activity
+	 * </br><b>time :</b>		2012-9-12 下午4:01:19
+	 * @param target
+	 */
+	public static void rollbackTo(Class<? extends Activity> target){
+		for(Activity activity : ActivityStack){
+			if(activity.equals(target)){
+				//已经是目标Activity，退出循环
+				break;
+			}else{
+				//不是目标栈，关闭它
+				activity.finish();
+			}
+		}
+	}
+	
+	/**
 	 * </br><b>description :</b>设置Activity全屏显示。
 	 * @param activity 			Activity引用
 	 * @param isFull 			true为全屏，false为非全屏
 	 */
 	public static void setFullScreen(Activity activity,boolean isFull){
+		hideTitleBar(activity);
 		Window window = activity.getWindow();
 		WindowManager.LayoutParams params = window.getAttributes();
 		if (isFull) {
@@ -95,6 +135,27 @@ public class BaseActivity {
 			window.setAttributes(params);
 			window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		}
+	}
+	
+	/**
+	 * <b>description :</b>		获取系统状态栏高度
+	 * </br><b>time :</b>		2012-9-5 下午7:23:12
+	 * @param activity
+	 * @return
+	 */
+	public static int getStatusBarHeight(Activity activity){
+		try {
+			Class<?> c = Class.forName("com.android.internal.R$dimen");
+			Object obj = c.newInstance();
+			Field field = c.getField("status_bar_height");
+		    int dpHeight = Integer.parseInt(field.get(obj).toString());
+		    int pxHeight = activity.getResources().getDimensionPixelSize(dpHeight);
+		    return pxHeight;
+		} catch (Exception e1) {
+		    e1.printStackTrace();
+		    return 0;
+		} 
+		
 	}
 	
 	/**

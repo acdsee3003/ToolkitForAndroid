@@ -36,8 +36,8 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.apkits.android.common.CommonReg;
-import com.apkits.android.common.StreamUtil;
+import com.apkits.android.common.CommonRegex;
+import com.apkits.android.common.ISUtil;
 import com.apkits.android.encrypt.HashEncrypt;
 import com.apkits.android.encrypt.HashEncrypt.CryptType;
 import com.apkits.android.resource.BitmapUtil;
@@ -85,7 +85,7 @@ public class WebImageView extends ImageView {
 		    }
 			Bitmap image = null;
 			try {
-				image = StreamUtil.convertBitmap(mContext.openFileInput(msg.obj.toString()));
+				image = ISUtil.toBitmap(mContext.openFileInput(msg.obj.toString()));
 			} catch (IOException e) {
 				Log.e(TAG,"Cannot convert file to image !");
 				e.printStackTrace();
@@ -165,7 +165,7 @@ public class WebImageView extends ImageView {
 	 * @param url
 	 */
 	public void fetchFromUrl(final String url){
-	    if(!CommonReg.matcherRegex("[\\w\\p{P}]*\\.[jpngifJPNGIF]{3,4}", url)){
+	    if(!CommonRegex.matcherRegex("[\\w\\p{P}]*\\.[jpngifJPNGIF]{3,4}", url)){
 	        if(mDefaultImageRes != 0) setImageResource(mDefaultImageRes);
             WebImageView.this.invalidate();
 	        return;

@@ -16,8 +16,8 @@ import android.view.View;
  */
 public interface ViewCreator<E> {
     /**
-     * </br><b>description :</b>创建View,HolderAdapter需要创建View时，会调用此方法创建View。
-     * </br><b>time :</b> 2012-7-10 下午11:03:47
+     * <b>description :</b>			创建View,HolderAdapter需要创建View时，会调用此方法创建View。
+     * </br><b>time :</b> 			2012-7-10 下午11:03:47
      * 
      * @param inflater
      * @param position
@@ -27,8 +27,8 @@ public interface ViewCreator<E> {
     View createView(LayoutInflater inflater, int position, E data);
 
     /**
-     * </br><b>description :</b>更新View </br><b>time :</b> 2012-7-10 下午11:04:30
-     * 
+     * <b>description :</b>			更新View 
+     * </br><b>time :</b> 			2012-7-10 下午11:04:30
      * @param view
      * @param position
      * @param data

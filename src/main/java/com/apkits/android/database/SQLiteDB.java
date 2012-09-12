@@ -15,7 +15,7 @@
  */
 package com.apkits.android.database;
 
-import com.apkits.android.common.CommonReg;
+import com.apkits.android.common.CommonRegex;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -343,7 +343,7 @@ public class SQLiteDB extends SQLiteOpenHelper  {
 	private String[] formateToLine(String sqlGroup){
 		StringBuffer sqlTemp = new StringBuffer();
 		for(String line : sqlGroup.split(System.getProperty("line.separator"))){
-			if( !CommonReg.matchEmptyLine(line) && !line.startsWith("--") ){
+			if( !CommonRegex.matchEmptyLine(line) && !line.startsWith("--") ){
 				sqlTemp.append(line);
 			}
 		}
