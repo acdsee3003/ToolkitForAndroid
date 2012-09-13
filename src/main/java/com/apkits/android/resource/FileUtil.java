@@ -274,6 +274,29 @@ public class FileUtil {
 			return null;
 		}
 	}
+	
+	/**
+	 * <b>description :</b>		计算文件夹大小
+	 * </br><b>time :</b>		2012-9-13 下午9:02:18
+	 * @param directory
+	 * @return
+	 * @throws IOException
+	 */
+	public static long getSize(File directory) throws IOException {
+		File[] files = directory.listFiles();
+		long size = 0;
+		for (File f : files) {
+			if (f.isDirectory())
+				size += getSize(f);
+			else {
+				FileInputStream fis = new FileInputStream(f);
+				size += fis.available();
+				fis.close();
+			}
+		}
+		return size;
+	}
+	
 	/**
 	 * </br><b>title : </b>		创建一个文件夹
 	 * </br><b>description :</b>如果<i>createParents</i> 被标记为true，则父级文件夹不存在将会被自动创建。
