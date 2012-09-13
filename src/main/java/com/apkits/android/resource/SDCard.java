@@ -48,7 +48,7 @@ public class SDCard {
 		
 		File path = Environment.getExternalStorageDirectory(); 
 		String SDCardPath = path.getAbsolutePath();
-		SDCardPath += SDCardPath.endsWith(File.pathSeparator) ? "" : File.pathSeparator;
+		SDCardPath += SDCardPath.endsWith(File.separator) ? "" : File.separator;
 		SDCARD_PATH = SDCardPath;
 		return SDCardPath;
 	}
