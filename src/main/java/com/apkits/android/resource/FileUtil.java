@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Random;
@@ -92,16 +93,36 @@ public class FileUtil {
 	public static void copy(String source, String dest) throws IOException {
 		copy(new File(source), new File(dest));
 	}
-
-	/**
-	 * 移动文件
-	 * @param source 
-	 * 				源文件路径 
-	 * @param dest 
-	 * 				目标文件路径 
-	 * @throws IOException
-	 */
 	
+	/**
+	 * <b>description :</b>		保存一个输入流到指定路径中，保存完成后输入流将被关闭。
+	 * </br><b>time :</b>		2012-9-13 下午4:16:52
+	 * @param is
+	 * @param path
+	 * @throws IOException 
+	 */
+	public static void save(InputStream is,String path) throws IOException{
+		save(is,path,true);
+	}
+	
+	/**
+	 * <b>description :</b>		保存一个输入流到指定路径中
+	 * </br><b>time :</b>		2012-9-13 下午4:20:09
+	 * @param is				输入流
+	 * @param path				路径
+	 * @param closeInputStream 是否关闭输入流
+	 * @throws IOException		
+	 */
+	public static void save(InputStream is,String path,boolean closeInputStream) throws IOException{
+		FileOutputStream os = new FileOutputStream(new File(path));
+		byte[] cache = new byte[ 1 * 1024 ]; 
+		for(int len = 0;(len = is.read(cache)) != -1;){
+		    os.write(cache, 0, len);
+		}
+		os.close();
+		if(closeInputStream) is.close();
+	}
+
 	/**
 	 * </br><b>title : </b>		移动文件
 	 * </br><b>description :</b>移动文件

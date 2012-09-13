@@ -107,7 +107,7 @@ public class BaseActivity {
 	 */
 	public static void rollbackTo(Class<? extends Activity> target){
 		for(Activity activity : ActivityStack){
-			if(activity.equals(target)){
+			if(activity.getClass().equals(target)){
 				//已经是目标Activity，退出循环
 				break;
 			}else{

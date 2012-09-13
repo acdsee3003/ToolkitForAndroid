@@ -51,7 +51,7 @@ public class HolderViewFiller<T> {
 	 * @param view
 	 * @param data
 	 */
-	public void reflesh(AbsListView view, List<T> data) {
+	public void update(AbsListView view, List<T> data) {
 		HolderAdapter<T> holderAdapter = exportAdapter(view);
 		if (null != holderAdapter) {
 			holderAdapter.update(data);

@@ -74,6 +74,7 @@ public class HolderAdapter<E> extends BaseAdapter {
 	 * @param data
 	 */
 	public void update(List<E> data){
+		clear();
 		mDataCache = data;
 		notifyDataSetChanged();
 	}
