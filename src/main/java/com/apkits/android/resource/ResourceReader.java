@@ -18,7 +18,10 @@ package com.apkits.android.resource;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.apkits.android.common.ISUtil;
+
 import android.content.Context;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -68,5 +71,18 @@ public class ResourceReader {
 	 */
 	public static Bitmap readResAsBitmap(Context c,int resId){
 		return BitmapFactory.decodeResource(c.getResources(), resId);
+	}
+	
+	/**
+	 * <b>description :</b>		读取RAW中的文件为字符串
+	 * </br><b>time :</b>		2012-9-14 上午10:08:00
+	 * @param c
+	 * @param resId
+	 * @return
+	 * @throws IOException 
+	 * @throws NotFoundException 
+	 */
+	public static String readRawAsString(Context c,int resId) throws NotFoundException, IOException{
+		return ISUtil.toString(c.getResources().openRawResource(resId));
 	}
 }

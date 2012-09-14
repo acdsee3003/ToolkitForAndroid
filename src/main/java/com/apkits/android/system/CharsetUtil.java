@@ -16,6 +16,8 @@
 package com.apkits.android.system;
 
 import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <ul>
@@ -27,7 +29,7 @@ import java.io.UnsupportedEncodingException;
  * <li><b>date : </b>       2012-7-17 下午10:26:03</li>
  * </ul>
  */
-public class ChineseUtil {
+public class CharsetUtil {
 
 	public static final char[] CHINESE_FIRST_LETTER_TABLE = { 'a', 'b', 'c',
 			'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
@@ -85,5 +87,39 @@ public class ChineseUtil {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * <b>description :</b>		半角字符转全角字符
+	 * </br><b>time :</b>		2012-9-14 上午10:36:15
+	 * @param input
+	 * @return
+	 */
+	public static String ToDBC(String input) {
+		char[] c = input.toCharArray();
+		for (int i = 0; i < c.length; i++) {
+			if (c[i] == 12288) {
+				c[i] = (char) 32;
+				continue;
+			}
+			if (c[i] > 65280 && c[i] < 65375)
+				c[i] = (char) (c[i] - 65248);
+		}
+		return new String(c);
+	}
+	
+	/**
+	 * <b>description :</b>		去除特殊字符或将所有中文标号替换为英文标号
+	 * </br><b>time :</b>		2012-9-14 上午10:37:17
+	 * @param str
+	 * @return
+	 */
+	public static String stringFilter(String str) {
+		str = str.replaceAll("【", "[").replaceAll("】", "]")
+				.replaceAll("！", "!").replaceAll("：", ":");// 替换中文标号
+		String regEx = "[『』]"; // 清除掉特殊字符
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(str);
+		return m.replaceAll("").trim();
 	}
 }

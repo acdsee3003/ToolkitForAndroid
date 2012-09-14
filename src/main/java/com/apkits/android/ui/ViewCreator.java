@@ -34,4 +34,13 @@ public interface ViewCreator<E> {
      * @param data
      */
     void updateView(View view, int position, E data);
+    
+    /**
+     * <b>description :</b>		这个View将被从可显示区中移除
+     * </br><b>time :</b>		2012-9-13 下午10:52:30
+     * @param view
+     * @param position
+     * @param data
+     */
+    void releaseView(View view, E data);
 };
